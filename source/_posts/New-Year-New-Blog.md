@@ -58,7 +58,7 @@ Given how much easier it should be to maintain and update this blog, I'm hoping 
 
   In Hugo, themes can also have settings. So I fiddled around with those a bit. 🤷‍♂️ I just have to remember to copy the `_config.yml` hacking I did back over to my fork of the theme.
 
-1. Make this blog post :inceptiontop: [commit]()
+1. Make this blog post :inceptiontop: [commit](https://github.com/highb/bmh/commit/f37e3ea5072dececea4080b7a5191ae9d7654e39)
 
   Checked out what it will look like locally with `hexo server`.
 
@@ -73,5 +73,7 @@ Given how much easier it should be to maintain and update this blog, I'm hoping 
   I didn't want to have to deal with [NameCheap](https://namecheap.com) *and* [CloudFlare](https://cloudflare.com) for this silly blog, so I ported DNS management over to Zeit on NameCheap. For some reason the bulk edit didn't like the single character subdomains on Zeit (for example, `a.zeit-world.org`) but the "Manage" screen was fine with it. 🤷‍♂️ Sounds like a fun bug for someone that isn't me to fix. DNS migrated super-quick and easy.
 
   ![NameCheap DNS Setup Screenshot](New-Year-New-Blog/namecheap-screenshot.png)
+
+  I decided I wanted to add a screenshot, which required adding [`hexo-asset-link`](https://github.com/liolok/hexo-asset-link) via `npm i --save hexo-asset-link`.
 
 That's about it. Hopefully you've learned something from this overly verbose guide. 😅 Hello to all the crawlers and bots out there!
