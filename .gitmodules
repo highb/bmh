@@ -1,0 +1,3 @@
+[submodule "themes/divpattern"]
+	path = themes/divpattern
+	url = https://github.com/highb/divpattern.git
