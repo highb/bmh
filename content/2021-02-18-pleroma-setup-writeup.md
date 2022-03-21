@@ -25,7 +25,7 @@ A pretty uneventful set of packages. [The docs describe each one's purpose](http
 
 The developer docs provide some useful tuning config for a small 2GB/2CPU instance like I've provisioned so I'm popping the config values below into `/etc/postgresql/11/main/postgresql.conf`. Beware of just pasting those values in, they already exist in the config! To save myself future confusion, I uncommented/updated the values provided in the config file by the system package. The values check out with what I've seen previously coming out of [PGTune](https://pgtune.leopard.in.ua/#/) in my professional life.
 
-```
+```ini
 shared_buffers = 512MB
 effective_cache_size = 1536MB
 maintenance_work_mem = 128MB
@@ -40,7 +40,7 @@ max_parallel_workers = 2
 Next up, making a user for the service, downloading the release, making a bunch of directories, etc. The developer includes what is essentially a shell script in the docs, so I copied the whole thing and put it in a shell script with a few tweaks:
 * Took the arch detection code from the top of the doc and injected it as below. This makes the script auto-detect the arch, which afaik is the only input needed on this script.
 
-```
+```bash
 arch="$(uname -m)";if [ "$arch" = "x86_64" ];then arch="amd64";elif [ "$arch" = "armv7l" ];then arch="arm";elif [ "$arch" = "aarch64" ];then arch="arm64";else echo "Unsupported arch: $arch">&2;fi;if getconf GNU_LIBC_VERSION>/dev/null;then libc_postfix="";elif [ "$(ldd 2>&1|head -c 9)" = "musl libc" ];then libc_postfix="-musl";elif [ "$(find /lib/libc.musl*|wc -l)" ];then libc_postfix="-musl";else echo "Unsupported libc">&2;fi;echo "$arch$libc_postfix"
 export FLAVOUR="${arch}${libc_postfix}"
 ```

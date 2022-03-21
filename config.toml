@@ -2,7 +2,7 @@
 base_url = "https://blog.bmh.io"
 
 # The site title and description; used in feeds by default.
-title = "bmh.io"
+title = "Brandon High"
 description = "Just another nerd blog"
 
 # Whether to automatically compile all Sass files in the sass directory
@@ -23,4 +23,10 @@ highlight_code = true
 divpattern_links = [
     {url = "https://github.com/highb/bmh", name = "Source on GitHub"},
     {url = "https://www.getzola.org/", name = "Generated with Zola"}
+]
+
+taxonomies = [
+    {name = "tags"}, # you can have taxonomies with the same name in multiple languages
+    {name = "categories", paginate_by = 5},  # 5 items per page for a term
+    {name = "authors"}, # Basic definition: no feed or pagination
 ]
