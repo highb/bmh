@@ -13,7 +13,7 @@ cp -r bmh/* bmh-old/*
 
 1. Copy over the relevant config from the old project
 
-I was previously using [Hexa]() for my blog.
+I was previously using [Hex0](https://hexo.io/) for my blog.
 
 1. Test it out
 
