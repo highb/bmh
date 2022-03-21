@@ -3,7 +3,7 @@ title = "Migrating to Zola"
 date = 2022-03-20
 +++
 
-Another year; another static site generator. I'm really enjoying working with Rust so I've migrated this blog to [Zola](https://getzola.com). I'll provide a brief walkthough of the steps I had to take.
+Another year; another static site generator. I'm really enjoying working with [Rust](https://rust-lang.org) so I've migrated this blog to [Zola](https://getzola.com). I'll provide a brief walkthough of the steps I had to take.
 
 ## Generate a new Zola project
 
