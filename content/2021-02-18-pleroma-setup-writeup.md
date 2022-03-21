@@ -9,6 +9,8 @@ tags:
 
 [Pleroma](https://pleroma.social/) is an open source social network platform that is a part of the [Fediverse](https://fediverse.party/en/fediverse). In this write-up, I will be describing my experience with installing the [OTP release](https://erlang.org/doc/design_principles/release_structure.html) on a Linux [VM in Google Cloud](https://cloud.google.com/compute/) by [following the official documentation](https://docs-develop.pleroma.social/backend/installation/otp_en/).
 
+<!-- more -->
+
 For someone who works with [Kubernetes clusters](https://kubernetes.io/) daily and deploys to them using [Helm](https://helm.sh/), the idea of manually configuring a VM to run my application is an adorable flashback to a simpler time. It brings me back to my days as a student systems administrator at Oregon State or the very early days wherein I would run Unreal Tournament servers from my home Linux computer. Are you feeling the nostalgia?
 
 # Pre-requisites

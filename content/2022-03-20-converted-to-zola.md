@@ -5,6 +5,8 @@ date = 2022-03-20
 
 Another year; another static site generator. I'm really enjoying working with [Rust](https://rust-lang.org) so I've migrated this blog to [Zola](https://getzola.com). After explaining why I'm switching, I'll provide a brief walkthough of the steps I had to take.
 
+<!-- more -->
+
 ## Why Zola?
 
 I was previously using [Hexo](https://hexo.io/) for my blog, which is yet another static site generator in JS. It's quite popular, but I don't work very often with the NodeJS ecosystem so I found that every time I wanted to write a new blog post, I had to get aquainted with the latest updates to all the various dependencies -- many of which had security issues. That was all quite a bit of effort for software that is only ever used in the build process to generate static HTML, CSS and JavaScript.

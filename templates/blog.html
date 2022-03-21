@@ -1,19 +1,14 @@
 {% extends "page.html" %}
 
 {% block content %}
-{% set page = section.pages[0] %}
 <h1 class="title">
-  {{ page.title }}
+  {{ section.title }}
 </h1>
-<p class="subtitle"><strong>{{ page.date }}</strong></p>
-{{ page.content | safe }}
-
-<h2>More Posts</h2>
-<ul>
-  {% for page in section.pages %}
-  {% if loop.index > 1 %}
-  <li><a href="{{ page.permalink | safe }}">{{ page.title }}</a></li>
-  {% endif %}
-  {% endfor %}
-</ul>
+{% for page in section.pages %}
+<a href="{{ page.permalink | safe }}"><h2>{{ page.title }}</h2></a>
+<p class="subtitle">{{ page.date }}</p>
+<p>{{ page.summary | safe }}
+    <a href="{{ page.permalink }}#continue-reading">Continue Reading</a>
+</p>
+{% endfor %}
 {% endblock content %}
