@@ -1,6 +1,6 @@
 ---
 title: 'Social Network Roundup'
-date: 2020-04-01 19:18:00
+date: 2020-04-01
 tags:
   - social network
   - diaspora
