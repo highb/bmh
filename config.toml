@@ -25,3 +25,4 @@ divpattern_links = [
     {url = "https://www.getzola.org/", name = "Generated with Zola"},
     {url = "https://www.vercel.com/", name = "Deployed with Vercel"}
 ]
+divpattern_theme = "theme-base-0b"
