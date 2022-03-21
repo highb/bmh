@@ -4,11 +4,26 @@
 <h1 class="title">
   {{ section.title }}
 </h1>
-{% for page in section.pages %}
-<a href="{{ page.permalink | safe }}"><h2>{{ page.title }}</h2></a>
-<p class="subtitle">{{ page.date }}</p>
-<p>{{ page.summary | safe }}
-    <a href="{{ page.permalink }}#continue-reading">Continue Reading</a>
-</p>
-{% endfor %}
+<div class="posts">
+    {% for page in paginator.pages %}
+        <article class="post">
+            <h2>{{ page.title }}</h2>
+            <p class="subtitle">{{ page.date }}</p>
+            <div class="post__summary">
+                {{ page.summary | safe }}
+            </div>
+            <div class="read-more">
+                <a href="{{ page.permalink }}">Continue Reading</a>
+            </div>
+        </article>
+    {% endfor %}
+</div>
+<nav class="pagination">
+    {% if paginator.previous %}
+        <a class="previous" href="{{ paginator.previous }}">‹ Previous</a>
+    {% endif %}
+    {% if paginator.next %}
+        <a class="next" href="{{ paginator.next }}">Next ›</a>
+    {% endif %}
+</nav>
 {% endblock content %}
