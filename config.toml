@@ -24,6 +24,7 @@ highlight_code = true
 [extra]
 # Put all your custom variables here
 divpattern_links = [
+    {url = "https://bmh.io/wishlist", name = "Wishlist of Shiny Things"},
     {url = "https://github.com/highb/bmh", name = "Source on GitHub"},
     {url = "https://www.getzola.org/", name = "Generated with Zola"},
     {url = "https://www.vercel.com/", name = "Deployed with Vercel"}
