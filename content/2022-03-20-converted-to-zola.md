@@ -3,7 +3,7 @@ title = "Migrating to Zola"
 date = 2022-03-20
 +++
 
-Another year; another static site generator. I'm really enjoying working with [Rust](https://rust-lang.org) so I've migrated this blog to [Zola](https://getzola.com). After explaining why I'm switching, I'll provide a brief walkthough of the steps I had to take.
+Another year; another static site generator. I'm really enjoying working with [Rust](https://rust-lang.org) so I've migrated this blog to [Zola](https://getzola.org). After explaining why I'm switching, I'll provide a brief walkthough of the steps I had to take.
 
 <!-- more -->
 
@@ -11,7 +11,7 @@ Another year; another static site generator. I'm really enjoying working with [R
 
 I was previously using [Hexo](https://hexo.io/) for my blog, which is yet another static site generator in JS. It's quite popular, but I don't work very often with the NodeJS ecosystem so I found that every time I wanted to write a new blog post, I had to get aquainted with the latest updates to all the various dependencies -- many of which had security issues. That was all quite a bit of effort for software that is only ever used in the build process to generate static HTML, CSS and JavaScript.
 
-This is all in stark contrast to [Zola](https://getzola.com) which is written in Rust and distributed as a single binary with no dependencies. Sure, if I wanted to build my own binary of Zola I would need to figure out and manage upgrading the dependencies. But as someone who just wants to write a comically simple blog documenting my learning, a single binary with an easily understandable version is just what I need. The site builds in a few milliseconds and has a local hot-reload command to preview my changes. The fact that it was trivial to migrate my existing posts written in Markdown over left me with no reason not to do it. How easy, you ask?
+This is all in stark contrast to [Zola](https://getzola.org) which is written in Rust and distributed as a single binary with no dependencies. Sure, if I wanted to build my own binary of Zola I would need to figure out and manage upgrading the dependencies. But as someone who just wants to write a comically simple blog documenting my learning, a single binary with an easily understandable version is just what I need. The site builds in a few milliseconds and has a local hot-reload command to preview my changes. The fact that it was trivial to migrate my existing posts written in Markdown over left me with no reason not to do it. How easy, you ask?
 
 ## Generate a new Zola project
 
