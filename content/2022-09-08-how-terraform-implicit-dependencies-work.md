@@ -13,9 +13,30 @@ In today's blog, I'm going to craft a toy example that demonstrates how I unders
 
 TODO: Album cover gif goes here
 
-You might be wondering, "Is that like, the stuff artists do to avoid getting a _Parental Advisory: Explicit Content_ sticker on their albums?" Which, yeah, I guess it could be but I'm talking about Terraform here. In Terraform, every time that you run a `terraform plan` or `terraform apply`, the tool is internally building a [directed acyclic graph](https://en.wikipedia.org/wiki/Directed_acyclic_graph) that models the dependencies between resources in your configuration that you specify using [HCL](https://github.com/hashicorp/hcl). The edges in this graph are the dependency relationships between your resources and they are typically inferred by Terraform without you _explicitly_ specifying them. It is possible to specify these dependencies _explicitly_ using the [depends_on meta-argument](https://www.terraform.io/language/meta-arguments/depends_on) but, as I will discuss in this post, that won't necessarily do what you might expect.
+You might be wondering, "Is that like, the stuff artists do to avoid getting a _Parental Advisory: Explicit Content_ sticker on their albums?" Which, yeah, I guess it could be but I'm talking about Terraform here. In Terraform, every time that you run a `terraform plan` or `terraform apply`, the tool is internally building a [directed acyclic graph](https://en.wikipedia.org/wiki/Directed_acyclic_graph) that models the dependencies between resources in your configuration that you specify using [HCL](https://github.com/hashicorp/hcl). The edges in this graph are the dependency relationships between your resources and they are typically inferred by Terraform without you explicitly specifying them. It is possible to specify these dependencies explicitly using the [depends_on meta-argument](https://www.terraform.io/language/meta-arguments/depends_on) but, as I will discuss in this post, that won't necessarily do what you might expect.
 
-[team/main.tf](https://github.com/highb/bmh-code/blob/311dcbad3b3959ef46113cbb132dd800473dfb1a/terraform/implicit-deps/team/main.tf)
+If you aren't required to specify anything about the resource dependencies _explicitly_, then how does Terraform know what the _implicit_ dependencies are? Like any good private investigator, Terraform knows who you're talking to. It uses the references that you are already making every time that you reference the [output values](https://www.terraform.io/language/values/outputs) of a resource, data source, or module somewhere else in your configuration and uses those to piece together how all the pieces fit together.
+
+## Connecting All the Dots
+
+TODO Always Sunny charlie conspiracy image
+
+The [example provided by Hashicorp for dependencies]() is a good guide, but it a dependency of its own that makes it less accessible for some of us. Specifically, it uses the [AWS provider]() which is fine if you're an AWS user but what if you're not a DevOps Wizard flying on Cloud to Nirvana? What if you don't even have internet access? How are you supposed to play around with these TF lanaguage constructs then? That's why I decided to play around with [local_file]() resources on my local system instead. 
+
+To get started, I pulled down [Terraform 1.2.9]() using [asdf]().
+
+```zsh
+❯ asdf install terraform 1.2.9
+Downloading terraform version 1.2.9 from https://releases.hashicorp.com/terraform/1.2.9/terraform_1.2.9_linux_amd64.zip
+...
+terraform_1.2.9_linux_amd64.zip: OK
+Cleaning terraform previous binaries
+Creating terraform bin directory
+Extracting terraform archive
+Time: 0h:00m:13s 
+```
+
+[team/main.tf (GitHub)](https://github.com/highb/bmh-code/blob/311dcbad3b3959ef46113cbb132dd800473dfb1a/terraform/implicit-deps/team/main.tf)
 ```terraform
 variable "team" {
   type = string
@@ -35,7 +56,7 @@ output "content" {
 }
 ```
 
-[main.tf](https://github.com/highb/bmh-code/blob/311dcbad3b3959ef46113cbb132dd800473dfb1a/terraform/implicit-deps/main.tf)
+[main.tf (GitHub)](https://github.com/highb/bmh-code/blob/311dcbad3b3959ef46113cbb132dd800473dfb1a/terraform/implicit-deps/main.tf)
 ```terraform
 terraform {
   required_providers {
