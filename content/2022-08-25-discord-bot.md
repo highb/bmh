@@ -26,3 +26,15 @@ async fn main() {
     framework.run().await.unwrap();
 }
 ```
+
+1) made a github repo
+2) cargo init
+3) Setup GHA
+    Reference zero to prod
+4) Cross-compile to aarch64 for Pi
+    Reference https://www.rohanjain.in/cargo-cross/
+    Better reference that uses `cross` https://kerkour.com/rust-cross-compilation
+
+
+
+
