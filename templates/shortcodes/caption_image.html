@@ -1,5 +1,5 @@
 {% set image = resize_image(path=path, width=width, height=height, op=op) %}
 <figure>
-  <img src="{{ image.url }}" class="center" />
+  <img src="{{ image.static_path }}" class="center" />
   <figcaption>{{ caption }}</figcaption>
 </figure> 
