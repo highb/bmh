@@ -9,9 +9,10 @@ In today's blog, I'm going to craft a toy example that demonstrates how I unders
 
 <!-- more -->
 
-## What do you mean Implicit Dependencies?
+## What do you mean by _Implicit Dependencies_?
 
-TODO: Album cover gif goes here
+{% set album = resize_image(path='how-terraform-implicit-dependencies-work/DALL·E 2022-08-29 00.03.54.webp', width=150, height=150, op='fit') %}
+<img src="{{ album.url }}" />
 
 You might be wondering, "Is that like, the stuff artists do to avoid getting a _Parental Advisory: Explicit Content_ sticker on their albums?" Which, yeah, I guess it could be but I'm talking about Terraform here. In Terraform, every time that you run a `terraform plan` or `terraform apply`, the tool is internally building a [directed acyclic graph](https://en.wikipedia.org/wiki/Directed_acyclic_graph) that models the dependencies between resources in your configuration that you specify using [HCL](https://github.com/hashicorp/hcl). The edges in this graph are the dependency relationships between your resources and they are typically inferred by Terraform without you explicitly specifying them. It is possible to specify these dependencies explicitly using the [depends_on meta-argument](https://www.terraform.io/language/meta-arguments/depends_on) but, as I will discuss in this post, that won't necessarily do what you might expect.
 
@@ -21,7 +22,7 @@ If you aren't required to specify anything about the resource dependencies _expl
 
 TODO Always Sunny charlie conspiracy image
 
-The [example provided by Hashicorp for dependencies](https://learn.hashicorp.com/tutorials/terraform/dependencies) is a good guide, but it a dependency of its own that makes it less accessible for some of us. Specifically, it uses the [AWS provider](https://registry.terraform.io/providers/hashicorp/aws/latest/docs) which is fine if you're an AWS user but what if you're not a DevOps Wizard flying on Cloud to Nirvana? What if you don't even have internet access? How are you supposed to play around with these TF lanaguage constructs then? That's why I decided to play around with [local_file](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/file) resources on my local system instead. 
+The [example provided by Hashicorp for dependencies](https://learn.hashicorp.com/tutorials/terraform/dependencies) is a good guide, but it a dependency of its own that makes it less accessible for some of us. Specifically, it uses the [AWS provider](https://registry.terraform.io/providers/hashicorp/aws/latest/docs) which is fine if you're an AWS user but what if you're not a DevOps Wizard flying on Cloud to Nirvana? What if you don't even have internet access? How are you supposed to play around with these TF lanaguage constructs then? That's why I decided to play around with [local_file](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/file) resources on my laptop instead. 
 
 To get started, I pulled down [Terraform 1.2.9](https://github.com/hashicorp/terraform/releases/tag/v1.2.9) using [asdf](https://asdf-vm.com/).
 
