@@ -5,13 +5,15 @@ date = 2022-09-09
 
 Have you ever wondered how [Terraform](https://terraform.io) [Implicit Dependencies](https://learn.hashicorp.com/tutorials/terraform/dependencies) actually work in practice?
 
-In today's blog, I'm going to craft a toy example that demonstrates how I understand that they work using `local_files` and thus not requiring any cloud connection or even internet connectivity.
+In today's blog, I'm going to craft a toy example that demonstrates how I understand that they work using `local_file` resources and thus not requiring any cloud connection or even internet connectivity.
 
 <!-- more -->
 
 ## What do you mean Implicit Dependencies?
 
-I know you're wondering, "Is that like... the stuff artists do to avoid getting a _Parental Advisory: Explicit Content_ sticket on their albums?" Which, yeah, I guess it could be but I'm talking about Terraform here. In Terraform, every time that you run a `terraform plan` or `terraform apply`, the tool is internally building a [directed acyclic graph](https://en.wikipedia.org/wiki/Directed_acyclic_graph) that models the dependencies between the resources in your configuration.
+TODO: Album cover gif goes here
+
+You might be wondering, "Is that like, the stuff artists do to avoid getting a _Parental Advisory: Explicit Content_ sticker on their albums?" Which, yeah, I guess it could be but I'm talking about Terraform here. In Terraform, every time that you run a `terraform plan` or `terraform apply`, the tool is internally building a [directed acyclic graph](https://en.wikipedia.org/wiki/Directed_acyclic_graph) that models the dependencies between resources in your configuration that you specify using [HCL](https://github.com/hashicorp/hcl). The edges in this graph are the dependency relationships between your resources and they are typically inferred by Terraform without you _explicitly_ specifying them. It is possible to specify these dependencies _explicitly_ using the [depends_on meta-argument](https://www.terraform.io/language/meta-arguments/depends_on) but, as I will discuss in this post, that won't necessarily do what you might expect.
 
 ```terraform
 # team/main.tf
