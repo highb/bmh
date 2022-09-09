@@ -17,7 +17,7 @@ If you aren't required to specify anything about the resource dependencies _expl
 
 ## Connecting All the Dots
 
-The [example provided by Hashicorp for dependencies](https://learn.hashicorp.com/tutorials/terraform/dependencies) is a good guide, but it a dependency of its own that makes it less accessible for some of us. Specifically, it uses the [AWS provider](https://registry.terraform.io/providers/hashicorp/aws/latest/docs) which is fine if you're an AWS user but what if you're not a DevOps Wizard flying on Cloud to Nirvana? What if you don't even have internet access? How are you supposed to play around with these TF lanaguage constructs then? That's why I decided to play around with [local_file](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/file) resources on my laptop instead. 
+The [example provided by Hashicorp for dependencies](https://learn.hashicorp.com/tutorials/terraform/dependencies) is a good guide, but it a dependency of its own that makes it less accessible for some of us. Specifically, it uses the [AWS provider](https://registry.terraform.io/providers/hashicorp/aws/latest/docs) which is fine if you're an AWS user but what if you're not a DevOps Wizard flying on Cloud to Nirvana? What if you don't even have internet access? How are you supposed to play around with these TF lanaguage constructs then? That's why I decided to play around with [`local_file`](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/file) resources on my laptop instead. 
 
 To get started, I pulled down [Terraform 1.2.9](https://github.com/hashicorp/terraform/releases/tag/v1.2.9) using [asdf](https://asdf-vm.com/).
 
@@ -142,7 +142,7 @@ local_file.team_guide: Creation complete after 0s [id=400f628fc381aad58ca6cf47b7
 Apply complete! Resources: 4 added, 0 changed, 0 destroyed.
 ```
 
-I can then make changes to the `locals` defined here and when I do `terraform apply`, it automatically knows that it needs to destroy the `team_guide` resource _before_ it updates the `teams` modules.
+I can then make changes to the `locals` and when I do `terraform apply`, it automatically knows that it needs to destroy the `team_guide` resource _before_ it updates the `teams` modules.
 
 ```zsh
 ❯ terraform apply
@@ -187,9 +187,11 @@ resource "local_file" "team_guide" {
 }
 ```
 
-Because this `for each` is referencing `module.teams`, Terraform creates an implicit dependency between these resources. That's it! You could technically add an explicit `depends_on` to the resource but it wouldn't change anything about Terraform's resource graph.
+Because this `for` expression is referencing `module.teams`, Terraform creates an implicit dependency between these resources. That's it! You could technically add an explicit `depends_on` to the resource but it wouldn't change anything about Terraform's resource graph.
 
-One tricky thing that I learned about the dependency graph when using `depends_on` is that it doesn't work the way that I would have expected it to in a system like Puppet which refreshes it's "state" every time it runs (because, for the most part, it doesn't have any state). To demonstate this, let's modify the configuration in `main.tf` so that the file content is gathered using the `file()` function, instead (ignoring that this would not apply on a fresh state because the files wouldn't exist to be read by `file()`.)
+One tricky thing that I learned about the dependency graph when using `depends_on` is that it doesn't work the way that I would have expected it to in a system like Puppet which refreshes it's "state" every time it runs (because, for the most part, it doesn't have any state). To demonstate this, let's modify the configuration in `main.tf` so that the file content is gathered using the `file()` function, instead. 
+
+<aside>Just ignore that this would not apply on a fresh state because the files wouldn't exist to be read by `file()`.</aside>
 
 ```terraform
 resource "local_file" "team_guide" {
