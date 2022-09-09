@@ -1,5 +1,6 @@
+<!-- Zola images don't render on Vercel right now due to their out of date glibc version -->
 {% set image = resize_image(path=path, width=width, height=height, op=op) %}
 <figure>
-  <img src="{{ image.static_path }}" class="center" />
+  <img src="{{ image.url }}" class="center" />
   <figcaption>{{ caption }}</figcaption>
 </figure> 
