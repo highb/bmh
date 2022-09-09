@@ -21,9 +21,9 @@ If you aren't required to specify anything about the resource dependencies _expl
 
 TODO Always Sunny charlie conspiracy image
 
-The [example provided by Hashicorp for dependencies]() is a good guide, but it a dependency of its own that makes it less accessible for some of us. Specifically, it uses the [AWS provider]() which is fine if you're an AWS user but what if you're not a DevOps Wizard flying on Cloud to Nirvana? What if you don't even have internet access? How are you supposed to play around with these TF lanaguage constructs then? That's why I decided to play around with [local_file]() resources on my local system instead. 
+The [example provided by Hashicorp for dependencies](https://learn.hashicorp.com/tutorials/terraform/dependencies) is a good guide, but it a dependency of its own that makes it less accessible for some of us. Specifically, it uses the [AWS provider](https://registry.terraform.io/providers/hashicorp/aws/latest/docs) which is fine if you're an AWS user but what if you're not a DevOps Wizard flying on Cloud to Nirvana? What if you don't even have internet access? How are you supposed to play around with these TF lanaguage constructs then? That's why I decided to play around with [local_file](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/file) resources on my local system instead. 
 
-To get started, I pulled down [Terraform 1.2.9]() using [asdf]().
+To get started, I pulled down [Terraform 1.2.9](https://github.com/hashicorp/terraform/releases/tag/v1.2.9) using [asdf](https://asdf-vm.com/).
 
 ```zsh
 ❯ asdf install terraform 1.2.9
