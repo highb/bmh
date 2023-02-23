@@ -1,6 +1,6 @@
 +++
 title = "Submit: A Short Story"
-date = 2022-09-09
+date = 2023-02-22
 +++
 
 Written in collaboration with [OpenAI text-davinci-003](https://platform.openai.com/)
