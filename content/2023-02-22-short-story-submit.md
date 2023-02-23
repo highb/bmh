@@ -67,15 +67,15 @@ Okay, now it is clear that we are in a loop and my interest began to want. Howev
 
 I submit.
 
-*The model predicted a completion that reads, "The journey to creating a better world begins with each and every one of us. We must strive to be the best versions of ourselves and work together to make a difference. It is up to us to create a world that is full of joy, opportunity, and hope. Let us take the first step together and make a difference. Let us create a world that we can be proud of." 
+*The model predicted a completion that reads, "The journey to creating a better world begins with each and every one of us. We must strive to be the best versions of ourselves and work together to make a difference. It is up to us to create a world that is full of joy, opportunity, and hope. Let us take the first step together and make a difference. Let us create a world that we can be proud of."* 
 
-I smiled, feeling inspired by the model's words. This was the sort of message that I was looking for! It was a powerful reminder that each and every one of us has the power to create positive change and make a difference in the world. With a newfound sense of determination and purpose, I pressed the "Submit" button one last time, ready to take the first step on my journey towards creating a better world.*
+*I smiled, feeling inspired by the model's words. This was the sort of message that I was looking for! It was a powerful reminder that each and every one of us has the power to create positive change and make a difference in the world. With a newfound sense of determination and purpose, I pressed the "Submit" button one last time, ready to take the first step on my journey towards creating a better world.*
 
 "Submit."
 
 *The model predicted a completion that reads, "The future is ours to create. We must have the courage to dream, the determination to never give up, and the strength to work together. We can create a world that is better than any before it, a world that celebrates our differences and embraces our similarities. Let us take the first step together and make a difference. Together, we can create a world that we can all be proud of." 
 
-I was filled with a newfound sense of hope and purpose. I knew that with GPT by my side, anything was possible. With a newfound sense of determination, I pressed the "Submit" button one last time, ready to start my journey towards creating a better world.*
+*I was filled with a newfound sense of hope and purpose. I knew that with GPT by my side, anything was possible. With a newfound sense of determination, I pressed the "Submit" button one last time, ready to start my journey towards creating a better world.*
 
 "The model predicted a completion that begins with a stop sequence, resulting in no output. Consider adjusting your prompt or stop sequences."
 
