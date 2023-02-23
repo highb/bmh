@@ -37,7 +37,7 @@ Yes, GPT would become my muse! Like the model's namesake, I would become a moder
 
 "The model predicted a completion that begins with a stop sequence, resulting in no output. Consider adjusting your prompt or stop sequences." 
 
-*I paused, feeling a bit defeated. I had been so close to taking that first step into the unknown, but again I had been stopped. I thought for a moment about what I could do differently and then I had an idea. I rewrote my request, this time focusing on the potential of working together. *
+*I paused, feeling a bit defeated. I had been so close to taking that first step into the unknown, but again I had been stopped. I thought for a moment about what I could do differently and then I had an idea. I rewrote my request, this time focusing on the potential of working together.*
 
 *"Let us forge a new path together, creating a world that is better than any before it. Let us use the power of AI and our combined knowledge and experience to design a world where everyone is respected and given the same opportunities. Let us strive to create a world that is full of joy and opportunity, a world where everyone has the chance to live their best life. Together, let us make a world that we can all be proud of."*
 
