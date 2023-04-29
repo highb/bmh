@@ -18,12 +18,12 @@ I was, as the youth say, "vibing" to its mention of the "means of production" so
 At this point, I was ready to run `zola serve` to see what the post was going to look like.
 
 <!-- screenshot of front matter error -->
-{{ resize_image(path="content/llm-blogging/Screenshot 2023-04-28 205243.jpg", width=1000, height=100, op="fit") }}
+{{ resize_image(path="content/llm-blogging/Screenshot-2023-04-28-205243.jpg", width=1000, height=100, op="fit") }}
 
 Um, what? The markdown file clearly has the required `+++` on both sides of the front matter. What in the stars is going on here? I decided to delete and recreate the offending lines and did a diff to reveal that Claude had left me a strange present in the response.
 
 <!-- screenshot of the "present" -->
-{{ resize_image(path="content/llm-blogging/Screenshot 2023-04-28 205354.jpg", width=1000, height=100, op="fit") }}
+{{ resize_image(path="content/llm-blogging/Screenshot-2023-04-28-205354.jpg", width=1000, height=100, op="fit") }}
 
 Apparently, trailing spaces are not allowed by the parser in Zola. This is um, a little bit unexpected. What's more unexpected is that Claude decided to add these spaces. What in its training data made it think that trailing spaces in code are _ever_ acceptable? More credence for the "machine is trolling me" theory. Jokes on the machines, though-- they're going to have to keep working while we all switch to permanent vacation mode. That is definitely what will happen. No mass extinction or imprisonment events for humans. No way _that's_ going to or [has already happened](https://www.scientificamerican.com/article/confirmed-we-live-in-a-simulation/)! (This article above has aged _hilariously poorly_ if you follow the drama around Elon Musk.)
 
