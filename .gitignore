@@ -1,2 +1,4 @@
 node_modules/
 dist/
+
+static/processed_images/

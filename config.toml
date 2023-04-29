@@ -14,7 +14,7 @@ generate_feed = true
 # Whether to build a search index to be used later on by a JavaScript library
 build_search_index = true
 
-theme = "divpattern"
+theme = "hyde"
 
 [markdown]
 # Whether to do syntax highlighting
@@ -23,11 +23,11 @@ highlight_code = true
 
 [extra]
 # Put all your custom variables here
-divpattern_links = [
+hyde_links = [
     {url = "https://bmh.io/wishlist", name = "Wishlist of Shiny Things", rel="me"},
     {url = "https://github.com/highb/bmh", name = "Source on GitHub", rel="me"},
     {url = "https://www.getzola.org/", name = "Generated with Zola", rel=""},
     {url = "https://www.vercel.com/", name = "Deployed with Vercel", rel=""},
     {url = "https://pdx.sh/@bh", name = "Social on Portlandish (Mastodon)", rel="me"}
 ]
-divpattern_theme = "theme-base-0b"
+hyde_theme = "theme-base-0b"
