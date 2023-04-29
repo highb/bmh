@@ -36,7 +36,7 @@ Of course, at this point I re-discovered that [Vercel](https://vercel.com) has a
 Woes of running a static site generator aside, I was now ready to lazily generate my next post from my existing notes. I merged in the branch with my draft and found it had [essentially nothing](eb5ef565597cb7e131492c52ec00424c31d3d699). Undeterred in my lazy thirst for content, I prompted Claude. `Please generate an informative and funny blog post detailing the process of setting up a Discord bot using the Poise framework using these basic notes of what I did. <draft>`
 
 <!-- big screenshot of what I'm not posting -->
-{{ resize_image(path="content\llm-blogging\Screenshot-2023-04-28-231042.jpg", width=1000, height=500, op="fit") }}
+{{ resize_image(path="llm-blogging/Screenshot-2023-04-28-231042.jpg", width=1000, height=500, op="fit") }}
 
 Nope. Not posting any of that. Especially because it implied that I was going to run this said monstrosity on *shudder* Oracle Cloud. At this point, I was ready to call it a night with this experiment. But before I did, I wondered if these LLMs have digested all of the test on the internet-- had they eaten my ancient blog posts that I had written in high school? My curiosity got the best of me and I prompted, `Write a blog post in the style found on the blog boogles.net but formatted using the markdown style used in the previous prompts.` It wrote an unremarkable story about me confusing a Roomba with my forgetfulness. I asked `Hm, that's not really in the style of boogles.net. What is your understanding of boogles.net?` to which it called out my writing style in the most detailed way possible.
 
