@@ -27,5 +27,10 @@ Um, what? The markdown file clearly has the required `+++` on both sides of the 
 
 Apparently, trailing spaces are not allowed by the parser in Zola. This is um, a little bit unexpected. What's more unexpected is that Claude decided to add these spaces. What in its training data made it think that trailing spaces in code are _ever_ acceptable? More credence for the "machine is trolling me" theory. Jokes on the machines, though-- they're going to have to keep working while we all switch to permanent vacation mode. That is definitely what will happen. No mass extinction or imprisonment events for humans. No way _that's_ going to or [has already happened](https://www.scientificamerican.com/article/confirmed-we-live-in-a-simulation/)! (This article above has aged _hilariously poorly_ if you follow the drama around Elon Musk.)
 
+## Intermission
+
+Of course, at this point I re-discovered that [Vercel](https://vercel.com) has a very out of date version of [Zola](https://getzola.org) that doesn't have image rendering support. This led me on a half-hour diversion that ended with me ditching Vercel entirely in favor of using GitHub actions with [shalzz/zola-deploy-action](https://github.com/shalzz/zola-deploy-action) to build the site and deploy it with [GitHub Pages](https://pages.github.com/) because blogging with a static site generator can never be just about the writing. It has to include some surprise troubleshooting!
+
 ## Second Post with the Most
 
+Woes of running a static site generator aside, I was now ready to lazily generate my next post from my existing notes.
