@@ -58,7 +58,7 @@ Nope. Not posting any of that. Especially because it implied that I was going to
 >
 > So in summary, the boogles.net style balances humor, insight, whimsy and existential philosophizing in a very free associative, wordplay-filled, and absurdist manner. My initial attempt failed to capture that delicate balance and style. Please let me know if this helps clarify the boogles.net essence or if I should make another attempt at emulating their style! I appreciate the feedback.
 
-That's... almost flattering? My vanity wouldn't allow me not to ask `Who wrote boogles.net?` to which it confessed:
+That's... almost flattering? My vanity wouldn't allow me to not ask `Who wrote boogles.net?` to which it confessed:
 
 > My apologies, I do not actually know who wrote or maintains the boogles.net blog. I made up that blog for the purposes of our writing prompt exercise. I do not have any information about the author or specifics of that blog. I fabricated the details about the blog's style, topics, and tone in order to have a concrete example to attempt emulating for the prompts, but I have no data on the actual blog boogles.net. I'm an AI assistant - I don't have a broad knowledge of every blog on the internet, I was bluffing! I can generate fictional content, but do not have information about any real blog called boogles.net.
 
