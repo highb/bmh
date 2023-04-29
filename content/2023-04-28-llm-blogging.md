@@ -3,7 +3,7 @@ title = "Using LLMs to actually finish some blog posts"
 date = 2023-04-28
 +++
 
-I think I'm pretty alright at taking notes in [LogSeq](https://logseq.com) on little projects that I do for fun. The problem is that, for someone who has starry-eyed ambitions of being a writer of some level of competence, I'm awful at turning those notes into a coherent story that others will be interested in. I have a tendency to get lost in side tangents and get distracted by the next shiny project that I want to _do_ without any regard for writing up what I've already done for the benefit of anyone other than myself. It's also just like... a lot of work, you know? So I started thinking, what if I was as lazy as possible and took a few of my existing blog ideas and notes, dumped them into a LLM ([ChatGPT](https://chat.openai.com) [Claude+](https://poe.com)), cleaned them up a little bit, posted those, and then did a write up on the experience, which I would of course also dump right back into an LLM. Let's see just how lazy I can be!
+I think I'm pretty alright at taking notes in [LogSeq](https://logseq.com) on little projects that I do for fun. The problem is that, for someone who has starry-eyed ambitions of being a writer of some level of competence, I'm awful at turning those notes into a coherent story that others will be interested in. I have a tendency to get lost in side tangents and get distracted by the next shiny project that I want to _do_ without any regard for writing up what I've already done for the benefit of anyone other than myself. It's also just like... a lot of work, you know? So I started thinking, what if I was as lazy as possible and took a few of my existing blog ideas and notes, dumped them into a LLM ([ChatGPT](https://chat.openai.com) [Claude+](https://www.anthropic.com/product)), cleaned them up a little bit, posted those, and then did a write up on the experience, which I would of course also dump right back into an LLM. Let's see just how lazy I can be!
 
 <!-- more -->
 
@@ -18,19 +18,24 @@ I was, as the youth say, "vibing" to its mention of the "means of production" so
 At this point, I was ready to run `zola serve` to see what the post was going to look like.
 
 <!-- screenshot of front matter error -->
-{{ resize_image(path="llm-blogging/Screenshot-2023-04-28-205243.jpg", width=1000, height=100, op="fit") }}
+{{ resize_image(path="llm-blogging/Screenshot-2023-04-28-205243.jpg", width=1000, height=300, op="fit") }}
 
 Um, what? The markdown file clearly has the required `+++` on both sides of the front matter. What in the stars is going on here? I decided to delete and recreate the offending lines and did a diff to reveal that Claude had left me a strange present in the response.
 
 <!-- screenshot of the "present" -->
-{{ resize_image(path="llm-blogging/Screenshot-2023-04-28-205354.jpg", width=1000, height=100, op="fit") }}
+{{ resize_image(path="llm-blogging/Screenshot-2023-04-28-205354.jpg", width=1000, height=300, op="fit") }}
 
-Apparently, trailing spaces are not allowed by the parser in Zola. This is um, a little bit unexpected. What's more unexpected is that Claude decided to add these spaces. What in its training data made it think that trailing spaces in code are _ever_ acceptable? More credence for the "machine is trolling me" theory. Jokes on the machines, though-- they're going to have to keep working while we all switch to permanent vacation mode. That is definitely what will happen. No mass extinction or imprisonment events for humans. No way _that's_ going to or [has already happened](https://www.scientificamerican.com/article/confirmed-we-live-in-a-simulation/)! (This article above has aged _hilariously poorly_ if you follow the drama around Elon Musk.)
+Apparently, trailing spaces are not allowed by the parser in Zola. This is um, a little bit unexpected. What's more unexpected is that Claude decided to add these spaces. What in its training data made it think that trailing spaces in code are _ever_ acceptable? More credence for the "machine is trolling me" theory. Jokes on the machines, though-- they're going to have to keep working while we all switch to permanent vacation mode. That is definitely what will happen. No mass extinction or imprisonment events for humans. No way _that's_ going to or [has already happened](https://www.scientificamerican.com/article/confirmed-we-live-in-a-simulation/)! (This article's jokes about Elon Musk have aged poorly.)
 
 ## Intermission
 
 Of course, at this point I re-discovered that [Vercel](https://vercel.com) has a very out of date version of [Zola](https://getzola.org) that doesn't have image rendering support. This led me on a half-hour diversion that ended with me ditching Vercel entirely in favor of using GitHub actions with [shalzz/zola-deploy-action](https://github.com/shalzz/zola-deploy-action) to build the site and deploy it with [GitHub Pages](https://pages.github.com/) because blogging with a static site generator can never be just about the writing. It has to include some surprise troubleshooting!
 
-## Second Post with the Most
+## The Post that Wasn't
 
-Woes of running a static site generator aside, I was now ready to lazily generate my next post from my existing notes.
+Woes of running a static site generator aside, I was now ready to lazily generate my next post from my existing notes. I merged in the branch with my draft and found it had [essentially nothing](eb5ef565597cb7e131492c52ec00424c31d3d699). Undeterred in my lazy thirst for content, I prompted Claude. `Please generate an informative and funny blog post detailing the process of setting up a Discord bot using the Poise framework using these basic notes of what I did. <draft>`
+
+<!-- big screenshot of what I'm not posting -->
+{{ resize_image(path="content\llm-blogging\Screenshot-2023-04-28-231042.jpg", width=1000, height=500, op="fit") }}
+
+Nope. Not posting any of that. Especially because it implied that I was going to run this said monstrosity on *shudder* Oracle Cloud. At this point, I was ready to call it a night with this experiment.
