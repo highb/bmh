@@ -1,6 +1,6 @@
 +++
 title = "Using LLMs to actually finish some blog posts"
-date = 2022-09-09
+date = 2023-04-28
 +++
 
 I think I'm pretty alright at taking notes in [LogSeq](https://logseq.com) on little projects that I do for fun. The problem is that, for someone who has starry-eyed ambitions of being a writer of some level of competence, I'm awful at turning those notes into a coherent story that others will be interested in. I have a tendency to get lost in side tangents and get distracted by the next shiny project that I want to _do_ without any regard for writing up what I've already done for the benefit of anyone other than myself. It's also just like... a lot of work, you know? So I started thinking, what if I was as lazy as possible and took a few of my existing blog ideas and notes, dumped them into a LLM ([ChatGPT](https://chat.openai.com) [Claude+](https://poe.com)), cleaned them up a little bit, posted those, and then did a write up on the experience, which I would of course also dump right back into an LLM. Let's see just how lazy I can be!
