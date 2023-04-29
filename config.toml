@@ -27,7 +27,6 @@ hyde_links = [
     {url = "https://bmh.io/wishlist", name = "Wishlist of Shiny Things", rel="me"},
     {url = "https://github.com/highb/bmh", name = "Source on GitHub", rel="me"},
     {url = "https://www.getzola.org/", name = "Generated with Zola", rel=""},
-    {url = "https://www.vercel.com/", name = "Deployed with Vercel", rel=""},
     {url = "https://pdx.sh/@bh", name = "Social on Portlandish (Mastodon)", rel="me"}
 ]
 hyde_theme = "theme-base-0b"
