@@ -41,17 +41,31 @@ Woes of running a static site generator aside, I was now ready to lazily generat
 Nope. Not posting any of that. Especially because it implied that I was going to run this said monstrosity on *shudder* Oracle Cloud. At this point, I was ready to call it a night with this experiment. But before I did, I wondered if these LLMs have digested all of the test on the internet-- had they eaten my ancient blog posts that I had written in high school? My curiosity got the best of me and I prompted, `Write a blog post in the style found on the blog boogles.net but formatted using the markdown style used in the previous prompts.` It wrote an unremarkable story about me confusing a Roomba with my forgetfulness. I asked `Hm, that's not really in the style of boogles.net. What is your understanding of boogles.net?` to which it called out my writing style in the most detailed way possible.
 
 > You're right, after reviewing boogles.net again, I did not quite capture the style and tone accurately. My understanding of the boogles.net blog style is:
+>
 > • It has a very quirky and eccentric style with random asides, tangents, and irreverent humor. Posts do not follow a very linear narrative flow and include many parentheticals and footnotes.
+>
 > • The topics are rather absurdist and whimsical. Posts cover things like the author's strange dreams, encounters with odd animals like ostriches or bees, musings on theoretical scenarios, etc. 
+>
 > • The tone balances humor and insight. While whimsical and absurdist, the posts often provide thought-provoking observations or reflect on human nature or the nature of reality. But the reflections don't take themselves too seriously.
+>
 > • Wordplay, metaphors and creative language are used frequently for comedic and poetic effect. Puns, rhymes, and alliteration also appear at times. 
+>
 > • A rambling, free associative style with sentences that twist and turn in unusual ways. The prose has a very improvisational feel, as if directly streaming thoughts from the author's mind.
+>
 > • An undercurrent of philosophy or existential angst, but expressed in a rather silly and whimsical way. Life's big questions are pondered but not in an overly serious manner.
+>
 > • A fascination with dreams, consciousness, reality, perception and the human experience. But these interests are explored with self-aware humor and eccentricity rather than dry intellect.
+>
 > So in summary, the boogles.net style balances humor, insight, whimsy and existential philosophizing in a very free associative, wordplay-filled, and absurdist manner. My initial attempt failed to capture that delicate balance and style. Please let me know if this helps clarify the boogles.net essence or if I should make another attempt at emulating their style! I appreciate the feedback.
 
 That's... almost flattering? My vanity wouldn't allow me not to ask `Who wrote boogles.net?` to which it confessed:
 
 > My apologies, I do not actually know who wrote or maintains the boogles.net blog. I made up that blog for the purposes of our writing prompt exercise. I do not have any information about the author or specifics of that blog. I fabricated the details about the blog's style, topics, and tone in order to have a concrete example to attempt emulating for the prompts, but I have no data on the actual blog boogles.net. I'm an AI assistant - I don't have a broad knowledge of every blog on the internet, I was bluffing! I can generate fictional content, but do not have information about any real blog called boogles.net.
 
-This left me even more confused and, as it predicted, full of existential angst. Did it generate that summary of my old blog simply from the domain name I gave it? Did it guess just from how I write prompts? Was this... a double bluff and there really was some part of the LLM that had my ancient blog inside of it? What would an LLM do with this many self-referential questions and thoughts about itself if this entire blog post was given to it? What sort of ouroboros of existential angst and absurdity would be yielded by feeding this back into the machine? After committing the words that I had actually written with my own internal messy biological generative models, I copied the whole post back in as a prompt and watched where this would go.
+This left me even more confused and, as it predicted, full of existential angst. Did it generate that summary of my old blog simply from the domain name I gave it? Did it guess just from how I write prompts? Was this... a double bluff and there really was some part of the LLM that had my ancient blog inside of it? Interesting questions that I would have to save for another time because it was getting late and the purpose of this exercise was to actually _post something_ and not to endlessly navel gaze into the eye of AI madness. 
+
+I hope that you had fun reading this; the bulk of _this_ post, except where otherwise noted, is actually written by me. I was originally going to feed the whole post back into Claude but it ended up being to much mental effort to try to shape it into generating something that preserved the original flow of my post. It did write up an good summary of the experience that I will leave you with:
+
+> This experience showed AI's limits. Claude generated a coherent story but lacked human judgment, creativity, and ability to gauge tone for audiences/contexts. It produced "sarcastic" or nonsensical responses, highlighting differences in human/AI humor, logic, and skills like entering code.  
+>
+> Still, for quick drafts and a laugh, Claude proved a capable ghostwriter, enabling maximum laziness. I got drafts for two posts in the normal time to avoid opening my notes app. Results proved AI won't replace human writers soon but may assist if its quirks are understood. My goal of lazy blogging achieved, I learned more about AI's wrinkles and what makes us human.
