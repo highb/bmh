@@ -7,8 +7,7 @@ on:
   pull_request:
 
 permissions:
-  contents: read
-  pages: write
+  contents: write
   
 jobs:
   build:
