@@ -11,13 +11,13 @@ In today's blog, I'm going to craft a toy example that demonstrates how I unders
 
 ## What do you mean by _Implicit Dependencies_?
 
-You might be wondering, "Implicit Dependencies... are those like, the stuff artists do to avoid getting a _Parental Advisory: Explicit Content_ sticker on their albums?" Which, yeah, I guess it could be but I'm talking about Terraform here. In Terraform, every time that you run a `terraform plan` or `terraform apply`, the tool is internally building a [directed acyclic graph](https://en.wikipedia.org/wiki/Directed_acyclic_graph) that models the dependencies between resources in your configuration that you specify using [HCL](https://github.com/hashicorp/hcl). The edges in this graph are the dependency relationships between your resources and they are typically inferred by Terraform without you explicitly specifying them. It is possible to specify these dependencies explicitly using the [depends_on meta-argument](https://www.terraform.io/language/meta-arguments/depends_on) but, as I will discuss in this post, that won't necessarily do what you might expect.
+You might be wondering, "Implicit Dependencies... are those like the stuff artists do to avoid getting a _Parental Advisory: Explicit Content_ sticker on their albums?" Which, yeah, I guess it could be but I'm talking about Terraform here. In Terraform, every time that you run a `terraform plan` or `terraform apply`, the tool is internally building a [directed acyclic graph](https://en.wikipedia.org/wiki/Directed_acyclic_graph) that models the dependencies between resources in your configuration that you specify using [HCL](https://github.com/hashicorp/hcl). The edges in this graph are the dependency relationships between your resources and they are typically inferred by Terraform without you explicitly specifying them. It is possible to specify these dependencies explicitly using the [depends_on meta-argument](https://www.terraform.io/language/meta-arguments/depends_on) but, as I will discuss in this post, that won't necessarily do what you might expect.
 
 If you aren't required to specify anything about the resource dependencies _explicitly_, then how does Terraform know what the _implicit_ dependencies are? Like any good private investigator, Terraform knows who you're talking to. It uses the references that you are already making every time that you reference the [output values](https://www.terraform.io/language/values/outputs) of a resource, data source, or module somewhere else in your configuration and uses those to piece together how all the pieces fit together.
 
 ## Connecting All the Dots
 
-The [example provided by Hashicorp for dependencies](https://learn.hashicorp.com/tutorials/terraform/dependencies) is a good guide, but it has a dependency of its own that makes it less accessible for some of us. Specifically, it uses the [AWS provider](https://registry.terraform.io/providers/hashicorp/aws/latest/docs) which is fine if you're an AWS user but what if you're not a DevOps Wizard flying on Cloud to Nirvana? What if you don't even have internet access? How are you supposed to play around with these TF lanaguage constructs then? That's why I decided to play around with [`local_file`](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/file) resources on my laptop instead. 
+The [example provided by Hashicorp for dependencies](https://learn.hashicorp.com/tutorials/terraform/dependencies) is a good guide, but it has a dependency of its own that makes it less accessible for some of us. Specifically, it uses the [AWS provider](https://registry.terraform.io/providers/hashicorp/aws/latest/docs) which is fine if you're an AWS user but what if you're not a DevOps Wizard flying on Cloud to Nirvana? What if you don't even have internet access? How are you supposed to play around with these TF language constructs then? That's why I decided to play around with [`local_file`](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/file) resources on my laptop instead. 
 
 To get started, I pulled down [Terraform 1.2.9](https://github.com/hashicorp/terraform/releases/tag/v1.2.9) using [asdf](https://asdf-vm.com/).
 
@@ -32,7 +32,7 @@ Terraform v1.2.9
 on linux_amd64
 ```
 
-Next I wrote up these files: 
+Next, I wrote up these files: 
 
 [main.tf (GitHub)](https://github.com/highb/bmh-code/blob/1f95dd278f0e1378b8f49a9448f95cebdabe81bc/terraform/implicit-deps/main.tf)
 ```terraform
@@ -178,7 +178,7 @@ local_file.team_guide: Creation complete after 0s [id=f5533e02419d3af8acb8736662
 Apply complete! Resources: 2 added, 0 changed, 2 destroyed.
 ```
 
-So, how does this actually work? The answer is here in the content attribute of `team_guide`.
+So, how does this work? The answer is here in the content attribute of `team_guide`.
 
 ```terraform
 resource "local_file" "team_guide" {
@@ -187,9 +187,9 @@ resource "local_file" "team_guide" {
 }
 ```
 
-Because this `for` expression is referencing `module.teams`, Terraform creates an implicit dependency between these resources. That's it! You could technically add an explicit `depends_on` to the resource but it wouldn't change anything about Terraform's resource graph.
+Because this `for` expression is referencing `module.teams`, Terraform creates an implicit dependency between these resources. That's it! You could technically add an explicit `depends_on` to the resource, but it wouldn't change anything about Terraform's resource graph.
 
-One tricky thing that I learned about the dependency graph when using `depends_on` is that it doesn't work the way that I would have expected it to in a system like Puppet which refreshes it's "state" every time it runs (because, for the most part, it doesn't have any state). To demonstate this, let's modify the configuration in `main.tf` so that the file content is gathered using the `file()` function, instead. 
+One tricky thing that I learned about the dependency graph when using `depends_on` is that it doesn't work the way that I would have expected it to in a system like Puppet, which refreshes its "state" every time it runs (because, for the most part, it doesn't have any state). To demonstrate this, let's modify the configuration in `main.tf` so that the file content is gathered using the `file()` function instead. 
 
 <aside>Just ignore that this would not apply on a fresh state because the files wouldn't exist to be read by `file()`.</aside>
 
@@ -200,7 +200,7 @@ resource "local_file" "team_guide" {
 }
 ```
 
-Now if we modify one of the `team` again and `terraform apply`, we see that the only change that is picked up is on the the change to the team itself and not the `team_guide` which is reading in the file.
+Now if we modify one of the `team` again and `terraform apply`, we see that the only change that is picked up is on the change to the team itself and not the `team_guide`, which is reading in the file.
 
 ```terraform
   # module.teams["b"].local_file.team_data must be replaced
@@ -218,7 +218,7 @@ module.teams["b"].local_file.team_data: Creation complete after 0s [id=f18ea0e62
 Apply complete! Resources: 1 added, 0 changed, 1 destroyed.
 ```
 
-If we run `terraform apply` _again_ then we will see that the Terraform plan that is implicitly run as part of apply action has picked up the changes to the files on disk, and the diff has been handed that off to apply so now it will converge as expected. For more details on why this is, read about the [resource lifecycle](https://www.terraform.io/internals/lifecycle)
+If we run `terraform apply` _again_ then we will see that the Terraform plan that is implicitly run as part of the apply action has picked up the changes to the files on disk, and the diff has been handed that off to apply so now it will converge as expected. For more details on why this is, read about the [resource lifecycle](https://www.terraform.io/internals/lifecycle)
 
 ```terraform
   # local_file.team_guide must be replaced
@@ -236,6 +236,8 @@ If we run `terraform apply` _again_ then we will see that the Terraform plan tha
 Plan: 1 to add, 0 to change, 1 to destroy.
 ```
 
-If your brain is used to the patterns used by Puppet, you would expect that adding a `depends_on` to the resource would resolve this issue. It does not. The reason for this is that adding this dependency does not change the diff that will be generated during the plan stage. The file being read by `file()` simply will not have changed at that point. There is no concept of a "refresh" between resources in Terraform that would force an update of resources in the dependency graph based on another resource changing. Instead, all of the resources that are known are queried during the plan stage and a diff is generated using those values against the current state file.
+If your brain is used to the patterns used by Puppet, you would expect that adding a `depends_on` to the resource would resolve this issue. It does not. The reason for this is that adding this dependency does not change the diff that will be generated during the plan stage. The file being read by `file()` simply will not have changed at that point. There is no concept of a "refresh" between resources in Terraform that would force an update of resources in the dependency graph based on another resource change. Instead, all of the resources that are known are queried during the plan stage, and a diff is generated using those values against the current state file.
 
-I found this to be very counter-intuitive when I first started learning Terraform due to my familiar patterns that I knew from Puppet but once I learned and updated my understanding with how Terraform works, I found that I was able to reason about how my configurations will be applied much better. I hope that this post helped you have some similar epiphanies of your own about Terraform. Thanks for reading!
+I found this counter-intuitive when I first started learning Terraform due to the familiar patterns that I knew from Puppet. Still, once I learned and updated my understanding of how Terraform works, I found that I could reason about how my configurations would be applied much better. I hope that this post helped you have some similar epiphanies of your own about Terraform. Thanks for reading!
+
+If you found this guide helpful, consider reading [Matthew Rose's blog post "Talking to the Locals" about the `terraform console`](https://matthewaerose.github.io/terraform/console/2023/08/31/talking-to-the-locals.html) to get some pointers on how to better explore your Terraform code and state with a handy REPL!
