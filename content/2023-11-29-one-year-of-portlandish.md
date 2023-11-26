@@ -23,4 +23,4 @@ Looking ahead, I'm excited to see how our community evolves and hope we can cont
 
 So, tell me—what are your favorite memories from this first year on Portlandish or the last year on the Fediverse in general? What memories do you want to create in the next year? Do you have any ideas on how we should celebrate this occasion next year? Do you think we should do more marketing for the server to spread the love to more local folks?
 
-[Reply to this post on Mastodon](https://pdx.sh/link/to/post)
+[Reply to this post on Mastodon](https://pdx.sh/@bh/111475243005624173)
