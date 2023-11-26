@@ -1,9 +1,11 @@
 +++
 title = "Celebrating One Year of the Portlandish Mastodon Server"
-date = 2023-04-28
+date = 2023-11-29
 +++
 
 As of today, November 25th, 2023, Samantha and I are celebrating a full year of operating our Mastodon server, [pdx.sh](https://pdx.sh). In this time, we've grown to a community of 27 active users! This journey has been incredibly rewarding, as we've watched our local community flourish gradually, with minimal marketing or promotion. It's fulfilling to offer this little corner of the internet—a space free from sponsored posts and advertisements—where people can freely engage. We hope our volunteer efforts inspire others to contribute their time and resources towards making a positive impact in their own unique ways.
+
+<!-- more -->
 
 Looking back, our decision to start [pdx.sh](https://pdx.sh) was partially a reaction to [Elon Musk's takeover of Twitter](https://www.nytimes.com/2022/11/11/technology/elon-musk-twitter-takeover.html). I still refer to my ex-employer as Facebook, its original name; perhaps this is what getting old feels like. Since Twitter's takeover, we've seen several waves of new sign-ups, following each new change on that site. We're happy to provide a haven for those seeking an alternative. While many continue to use Twitter because it's where "everyone" is, we see Mastodon's smaller reach as [a feature, not a bug](https://www.wired.com/story/its-not-a-bug-its-a-feature/). "Everyone" includes some very toxic elements, which any social network is better off without. Over the past year, I've noticed more people on Mastodon and the [Fediverse](https://en.wikipedia.org/wiki/Fediverse) in general embracing this idea. As I see it, you don't have to change the whole world—just your small part of it. If you improve one life with your efforts, you're doing good work.
 
