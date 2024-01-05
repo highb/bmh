@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+      <!-- Enable responsiveness on mobile devices-->
+      <!-- viewport-fit=cover is to support iPhone X rounded corners and notch in landscape-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover">
+
+      <title>Brandon High</title>
+
+      <!-- CSS -->
+      <link rel="stylesheet" href="https://blog.bmh.io/print.css" media="print">
+      <link rel="stylesheet" href="https://blog.bmh.io/poole.css">
+      <link rel="stylesheet" href="https://blog.bmh.io/hyde.css">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+      
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="https://blog.bmh.io/atom.xml">
+      
+
+      
+      
+    </head>
+
+    <body class="theme-base-0b ">
+        
+            <div class="sidebar">
+                <div class="container sidebar-sticky">
+                    <div class="sidebar-about">
+                        
+                            <a href="https:&#x2F;&#x2F;blog.bmh.io"><h1>Brandon High</h1></a>
+                            
+                            <p class="lead">Just another nerd blog</p>
+                            
+                        
+                    </div>
+
+                    <ul class="sidebar-nav">
+                        
+                        
+                        <li class="sidebar-nav-item"><a href="https:&#x2F;&#x2F;bmh.io&#x2F;wishlist">Wishlist of Shiny Things</a></li>
+                        
+                        <li class="sidebar-nav-item"><a href="https:&#x2F;&#x2F;github.com&#x2F;highb&#x2F;bmh">Source on GitHub</a></li>
+                        
+                        <li class="sidebar-nav-item"><a href="https:&#x2F;&#x2F;www.getzola.org&#x2F;">Generated with Zola</a></li>
+                        
+                        <li class="sidebar-nav-item"><a href="https:&#x2F;&#x2F;pdx.sh&#x2F;@bh">Social on Portlandish (Mastodon)</a></li>
+                        
+                        <li class="sidebar-nav-item"><a href="https:&#x2F;&#x2F;blog.bmh.io&#x2F;atom.xml">Atom (XML Feed)</a></li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div class="content container">
+            
+<h1 class="title">
+  How Terraform Implicit Dependencies Work: A Toy Example
+</h1>
+<p class="subtitle"><strong>2022-09-09</strong></p>
+<p class="subtitle"></p>
+<p class="subtitle"></p>
+<p>Have you ever wondered how <a href="https://terraform.io">Terraform</a> <a href="https://learn.hashicorp.com/tutorials/terraform/dependencies">Implicit Dependencies</a> actually work in practice?</p>
+<p>In today's blog, I'm going to craft a toy example that demonstrates how I understand that they work using <code>local_file</code> resources and thus not requiring any cloud connection or even internet connectivity.</p>
+<span id="continue-reading"></span><h2 id="what-do-you-mean-by-implicit-dependencies">What do you mean by <em>Implicit Dependencies</em>?</h2>
+<p>You might be wondering, &quot;Implicit Dependencies... are those like the stuff artists do to avoid getting a <em>Parental Advisory: Explicit Content</em> sticker on their albums?&quot; Which, yeah, I guess it could be but I'm talking about Terraform here. In Terraform, every time that you run a <code>terraform plan</code> or <code>terraform apply</code>, the tool is internally building a <a href="https://en.wikipedia.org/wiki/Directed_acyclic_graph">directed acyclic graph</a> that models the dependencies between resources in your configuration that you specify using <a href="https://github.com/hashicorp/hcl">HCL</a>. The edges in this graph are the dependency relationships between your resources and they are typically inferred by Terraform without you explicitly specifying them. It is possible to specify these dependencies explicitly using the <a href="https://www.terraform.io/language/meta-arguments/depends_on">depends_on meta-argument</a> but, as I will discuss in this post, that won't necessarily do what you might expect.</p>
+<p>If you aren't required to specify anything about the resource dependencies <em>explicitly</em>, then how does Terraform know what the <em>implicit</em> dependencies are? Like any good private investigator, Terraform knows who you're talking to. It uses the references that you are already making every time that you reference the <a href="https://www.terraform.io/language/values/outputs">output values</a> of a resource, data source, or module somewhere else in your configuration and uses those to piece together how all the pieces fit together.</p>
+<h2 id="connecting-all-the-dots">Connecting All the Dots</h2>
+<p>The <a href="https://learn.hashicorp.com/tutorials/terraform/dependencies">example provided by Hashicorp for dependencies</a> is a good guide, but it has a dependency of its own that makes it less accessible for some of us. Specifically, it uses the <a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs">AWS provider</a> which is fine if you're an AWS user but what if you're not a DevOps Wizard flying on Cloud to Nirvana? What if you don't even have internet access? How are you supposed to play around with these TF language constructs then? That's why I decided to play around with <a href="https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/file"><code>local_file</code></a> resources on my laptop instead. </p>
+<p>To get started, I pulled down <a href="https://github.com/hashicorp/terraform/releases/tag/v1.2.9">Terraform 1.2.9</a> using <a href="https://asdf-vm.com/">asdf</a>.</p>
+<pre data-lang="zsh" style="background-color:#2b303b;color:#c0c5ce;" class="language-zsh "><code class="language-zsh" data-lang="zsh"><span style="color:#bf616a;">❯</span><span> asdf install terraform 1.2.9
+</span><span style="color:#bf616a;">Downloading</span><span> terraform version 1.2.9 from https://releases.hashicorp.com/terraform/1.2.9/terraform_1.2.9_linux_amd64.zip
+</span><span style="color:#bf616a;">...
+</span><span style="color:#bf616a;">❯</span><span> asdf global terraform 1.2.9
+</span><span>
+</span><span style="color:#bf616a;">❯</span><span> terraform version
+</span><span style="color:#bf616a;">Terraform</span><span> v1.2.9
+</span><span style="color:#bf616a;">on</span><span> linux_amd64
+</span></code></pre>
+<p>Next, I wrote up these files: </p>
+<p><a href="https://github.com/highb/bmh-code/blob/1f95dd278f0e1378b8f49a9448f95cebdabe81bc/terraform/implicit-deps/main.tf">main.tf (GitHub)</a></p>
+<pre data-lang="terraform" style="background-color:#2b303b;color:#c0c5ce;" class="language-terraform "><code class="language-terraform" data-lang="terraform"><span>locals {
+</span><span>  teams = {
+</span><span>    a = {
+</span><span>      summary = &quot;hey, I&#39;m a. aaaaaay!&quot;
+</span><span>    },
+</span><span>    b = {
+</span><span>      summary = &quot;great team. we change names a lot. bi-weekly, at least.&quot;
+</span><span>    },
+</span><span>    c = {
+</span><span>      summary = &quot;int main () { return 0; }&quot;
+</span><span>    }
+</span><span>  }
+</span><span>}
+</span><span>
+</span><span>module &quot;teams&quot; {
+</span><span>  source = &quot;./team&quot;
+</span><span>
+</span><span>  for_each = local.teams
+</span><span>
+</span><span>  team = each.key
+</span><span>  summary = each.value.summary
+</span><span>}
+</span><span>
+</span><span>resource &quot;local_file&quot; &quot;team_guide&quot; {
+</span><span>  content = join(&quot;\n&quot;, [for k, v in module.teams : join(&quot;: &quot;, [k, v.content])])
+</span><span>  filename = &quot;team_guide.txt&quot;
+</span><span>}
+</span></code></pre>
+<p><a href="https://github.com/highb/bmh-code/blob/1f95dd278f0e1378b8f49a9448f95cebdabe81bc/terraform/implicit-deps/team/main.tf">team/main.tf (GitHub)</a></p>
+<pre data-lang="terraform" style="background-color:#2b303b;color:#c0c5ce;" class="language-terraform "><code class="language-terraform" data-lang="terraform"><span>variable &quot;team&quot; {
+</span><span>  type = string
+</span><span>}
+</span><span>
+</span><span>variable &quot;summary&quot; {
+</span><span>  type = string
+</span><span>}
+</span><span>
+</span><span>resource &quot;local_file&quot; &quot;team_data&quot; {
+</span><span>  content = var.summary
+</span><span>  filename = &quot;${var.team}.data&quot;
+</span><span>}
+</span><span>
+</span><span>output &quot;content&quot; {
+</span><span>  value = local_file.team_data.content
+</span><span>}
+</span></code></pre>
+<p>During the initial <code>terraform apply</code> to create the initial state, we can see that it knows that it must create each of the <code>module.teams</code> before the <code>team_guide</code>. Output is abbreviated.</p>
+<pre data-lang="zsh" style="background-color:#2b303b;color:#c0c5ce;" class="language-zsh "><code class="language-zsh" data-lang="zsh"><span style="color:#bf616a;">❯</span><span> terraform apply
+</span><span style="color:#bf616a;">...
+</span><span>  </span><span style="color:#65737e;"># local_file.team_guide will be created
+</span><span>  </span><span style="color:#bf616a;">+</span><span> resource &quot;</span><span style="color:#a3be8c;">local_file</span><span>&quot; &quot;</span><span style="color:#a3be8c;">team_guide</span><span>&quot; {
+</span><span>      + content              = &lt;&lt;-EOT
+</span><span>            a: hey, I&#39;</span><span style="color:#a3be8c;">m a. aaaaaay!
+</span><span style="color:#a3be8c;">            b: great team. we change names a lot. bi-weekly, at least.
+</span><span style="color:#a3be8c;">            c: int main () { return 0; }
+</span><span style="color:#a3be8c;">        EOT
+</span><span style="color:#a3be8c;">      + directory_permission = &quot;0777&quot;
+</span><span style="color:#a3be8c;">      + file_permission      = &quot;0777&quot;
+</span><span style="color:#a3be8c;">      + filename             = &quot;team_guide.txt&quot;
+</span><span style="color:#a3be8c;">      + id                   = (known after apply)
+</span><span style="color:#a3be8c;">    }
+</span><span style="color:#a3be8c;">
+</span><span style="color:#a3be8c;">  # module.teams[&quot;a&quot;].local_file.team_data will be created
+</span><span style="color:#a3be8c;">  + resource &quot;local_file&quot; &quot;team_data&quot; {
+</span><span style="color:#a3be8c;">      + content              = &quot;hey, I</span><span>&#39;m a. aaaaaay!&quot;
+</span><span style="color:#a3be8c;">      + directory_permission = </span><span>&quot;0777&quot;
+</span><span style="color:#a3be8c;">      + file_permission      = </span><span>&quot;0777&quot;
+</span><span style="color:#a3be8c;">      + filename             = </span><span>&quot;a.data&quot;
+</span><span style="color:#a3be8c;">      + id                   = (known after apply)
+</span><span style="color:#a3be8c;">    }
+</span><span style="color:#a3be8c;">
+</span><span style="color:#a3be8c;">  # module.teams[</span><span>&quot;b&quot;</span><span style="color:#a3be8c;">].local_file.team_data will be created
+</span><span style="color:#a3be8c;">  + resource </span><span>&quot;local_file&quot; &quot;team_data&quot;</span><span style="color:#a3be8c;"> {
+</span><span style="color:#a3be8c;">      + content              = </span><span>&quot;great team. we change names a lot. bi-weekly, at least.&quot;
+</span><span style="color:#a3be8c;">      + directory_permission = </span><span>&quot;0777&quot;
+</span><span style="color:#a3be8c;">      + file_permission      = </span><span>&quot;0777&quot;
+</span><span style="color:#a3be8c;">      + filename             = </span><span>&quot;b.data&quot;
+</span><span style="color:#a3be8c;">      + id                   = (known after apply)
+</span><span style="color:#a3be8c;">    }
+</span><span style="color:#a3be8c;">
+</span><span style="color:#a3be8c;">  # module.teams[</span><span>&quot;c&quot;</span><span style="color:#a3be8c;">].local_file.team_data will be created
+</span><span style="color:#a3be8c;">  + resource </span><span>&quot;local_file&quot; &quot;team_data&quot;</span><span style="color:#a3be8c;"> {
+</span><span style="color:#a3be8c;">      + content              = </span><span>&quot;int main () { return 0; }&quot;
+</span><span style="color:#a3be8c;">      + directory_permission = </span><span>&quot;0777&quot;
+</span><span style="color:#a3be8c;">      + file_permission      = </span><span>&quot;0777&quot;
+</span><span style="color:#a3be8c;">      + filename             = </span><span>&quot;c.data&quot;
+</span><span style="color:#a3be8c;">      + id                   = (known after apply)
+</span><span style="color:#a3be8c;">    }
+</span><span style="color:#a3be8c;">...
+</span><span style="color:#a3be8c;">module.teams[</span><span>&quot;b&quot;</span><span style="color:#a3be8c;">].local_file.team_data: Creating...
+</span><span style="color:#a3be8c;">module.teams[</span><span>&quot;a&quot;</span><span style="color:#a3be8c;">].local_file.team_data: Creating...
+</span><span style="color:#a3be8c;">module.teams[</span><span>&quot;c&quot;</span><span style="color:#a3be8c;">].local_file.team_data: Creating...
+</span><span style="color:#a3be8c;">module.teams[</span><span>&quot;a&quot;</span><span style="color:#a3be8c;">].local_file.team_data: Creation complete after 0s [id=fc2e8a361bfa03467011fc4eaffb66e25edf10fa]
+</span><span style="color:#a3be8c;">module.teams[</span><span>&quot;c&quot;</span><span style="color:#a3be8c;">].local_file.team_data: Creation complete after 0s [id=aa42d468cc318c333239fdd23bea3c498d755a56]
+</span><span style="color:#a3be8c;">module.teams[</span><span>&quot;b&quot;</span><span style="color:#a3be8c;">].local_file.team_data: Creation complete after 0s [id=4e6f79afa05a3112ec94f284923bed560435504c]
+</span><span style="color:#a3be8c;">local_file.team_guide: Creating...
+</span><span style="color:#a3be8c;">local_file.team_guide: Creation complete after 0s [id=400f628fc381aad58ca6cf47b75468c9535f2f87]
+</span><span style="color:#a3be8c;">
+</span><span style="color:#a3be8c;">Apply complete! Resources: 4 added, 0 changed, 0 destroyed.
+</span></code></pre>
+<p>I can then make changes to the <code>locals</code> and when I do <code>terraform apply</code>, it automatically knows that it needs to destroy the <code>team_guide</code> resource <em>before</em> it updates the <code>teams</code> modules.</p>
+<pre data-lang="zsh" style="background-color:#2b303b;color:#c0c5ce;" class="language-zsh "><code class="language-zsh" data-lang="zsh"><span style="color:#bf616a;">❯</span><span> terraform apply
+</span><span style="color:#bf616a;">...
+</span><span>  </span><span style="color:#65737e;"># local_file.team_guide must be replaced
+</span><span style="color:#bf616a;">-/+</span><span> resource &quot;</span><span style="color:#a3be8c;">local_file</span><span>&quot; &quot;</span><span style="color:#a3be8c;">team_guide</span><span>&quot; {
+</span><span>      </span><span style="color:#bf616a;">~</span><span> content              = &lt;&lt;-EOT </span><span style="color:#65737e;"># forces replacement
+</span><span>            a: hey, I&#39;</span><span style="color:#a3be8c;">m a. aaaaaay!
+</span><span style="color:#a3be8c;">          - b: great team. we change names a lot. bi-weekly, at least.
+</span><span style="color:#a3be8c;">          + b: great team. we change names a lot. weekly, at least.
+</span><span style="color:#a3be8c;">            c: int main () { return 0; }
+</span><span style="color:#a3be8c;">        EOT
+</span><span style="color:#a3be8c;">      ~ id                   = &quot;400f628fc381aad58ca6cf47b75468c9535f2f87&quot; -&gt; (known after apply)
+</span><span style="color:#a3be8c;">        # (3 unchanged attributes hidden)
+</span><span style="color:#a3be8c;">    }
+</span><span style="color:#a3be8c;">
+</span><span style="color:#a3be8c;">  # module.teams[&quot;b&quot;].local_file.team_data must be replaced
+</span><span style="color:#a3be8c;">-/+ resource &quot;local_file&quot; &quot;team_data&quot; {
+</span><span style="color:#a3be8c;">      ~ content              = &quot;great team. we change names a lot. bi-weekly, at least.&quot; -&gt; &quot;great team. we change names a lot. weekly, at least.&quot; # forces replacement
+</span><span style="color:#a3be8c;">      ~ id                   = &quot;4e6f79afa05a3112ec94f284923bed560435504c&quot; -&gt; (known after apply)
+</span><span style="color:#a3be8c;">        # (3 unchanged attributes hidden)
+</span><span style="color:#a3be8c;">    }
+</span><span style="color:#a3be8c;">...
+</span><span style="color:#a3be8c;">local_file.team_guide: Destroying... [id=400f628fc381aad58ca6cf47b75468c9535f2f87]
+</span><span style="color:#a3be8c;">local_file.team_guide: Destruction complete after 0s
+</span><span style="color:#a3be8c;">module.teams[&quot;b&quot;].local_file.team_data: Destroying... [id=4e6f79afa05a3112ec94f284923bed560435504c]
+</span><span style="color:#a3be8c;">module.teams[&quot;b&quot;].local_file.team_data: Destruction complete after 0s
+</span><span style="color:#a3be8c;">module.teams[&quot;b&quot;].local_file.team_data: Creating...
+</span><span style="color:#a3be8c;">module.teams[&quot;b&quot;].local_file.team_data: Creation complete after 0s [id=2c2d10292d625d948193136bfa981ffa84c1a6dd]
+</span><span style="color:#a3be8c;">local_file.team_guide: Creating...
+</span><span style="color:#a3be8c;">local_file.team_guide: Creation complete after 0s [id=f5533e02419d3af8acb8736662de1eb54e755544]
+</span><span style="color:#a3be8c;">
+</span><span style="color:#a3be8c;">Apply complete! Resources: 2 added, 0 changed, 2 destroyed.
+</span></code></pre>
+<p>So, how does this work? The answer is here in the content attribute of <code>team_guide</code>.</p>
+<pre data-lang="terraform" style="background-color:#2b303b;color:#c0c5ce;" class="language-terraform "><code class="language-terraform" data-lang="terraform"><span>resource &quot;local_file&quot; &quot;team_guide&quot; {
+</span><span>  content = join(&quot;\n&quot;, [for k, v in --&gt; *module.teams* &lt;-- : join(&quot;: &quot;, [k, v.content])])
+</span><span>  filename = &quot;team_guide.txt&quot;
+</span><span>}
+</span></code></pre>
+<p>Because this <code>for</code> expression is referencing <code>module.teams</code>, Terraform creates an implicit dependency between these resources. That's it! You could technically add an explicit <code>depends_on</code> to the resource, but it wouldn't change anything about Terraform's resource graph.</p>
+<p>One tricky thing that I learned about the dependency graph when using <code>depends_on</code> is that it doesn't work the way that I would have expected it to in a system like Puppet, which refreshes its &quot;state&quot; every time it runs (because, for the most part, it doesn't have any state). To demonstrate this, let's modify the configuration in <code>main.tf</code> so that the file content is gathered using the <code>file()</code> function instead. </p>
+<aside>Just ignore that this would not apply on a fresh state because the files wouldn't exist to be read by `file()`.</aside>
+<pre data-lang="terraform" style="background-color:#2b303b;color:#c0c5ce;" class="language-terraform "><code class="language-terraform" data-lang="terraform"><span>resource &quot;local_file&quot; &quot;team_guide&quot; {
+</span><span>  content = join(&quot;\n&quot;, [for k, v in local.teams : &quot;${k}: ${file(k)}&quot;])
+</span><span>  filename = &quot;team_guide.txt&quot;
+</span><span>}
+</span></code></pre>
+<p>Now if we modify one of the <code>team</code> again and <code>terraform apply</code>, we see that the only change that is picked up is on the change to the team itself and not the <code>team_guide</code>, which is reading in the file.</p>
+<pre data-lang="terraform" style="background-color:#2b303b;color:#c0c5ce;" class="language-terraform "><code class="language-terraform" data-lang="terraform"><span>  # module.teams[&quot;b&quot;].local_file.team_data must be replaced
+</span><span>-/+ resource &quot;local_file&quot; &quot;team_data&quot; {
+</span><span>      ~ content              = &quot;great team. we change names a lot. weekly, at least.&quot; -&gt; &quot;great team. we don&#39;t change our name often.&quot; # forces replacement
+</span><span>      ~ id                   = &quot;2c2d10292d625d948193136bfa981ffa84c1a6dd&quot; -&gt; (known after apply)
+</span><span>        # (3 unchanged attributes hidden)
+</span><span>    }
+</span><span>...
+</span><span>module.teams[&quot;b&quot;].local_file.team_data: Destroying... [id=2c2d10292d625d948193136bfa981ffa84c1a6dd]
+</span><span>module.teams[&quot;b&quot;].local_file.team_data: Destruction complete after 0s
+</span><span>module.teams[&quot;b&quot;].local_file.team_data: Creating...
+</span><span>module.teams[&quot;b&quot;].local_file.team_data: Creation complete after 0s [id=f18ea0e62d069cf8b1383dd84f46ffd3d5d3555d]
+</span><span>
+</span><span>Apply complete! Resources: 1 added, 0 changed, 1 destroyed.
+</span></code></pre>
+<p>If we run <code>terraform apply</code> <em>again</em> then we will see that the Terraform plan that is implicitly run as part of the apply action has picked up the changes to the files on disk, and the diff has been handed that off to apply so now it will converge as expected. For more details on why this is, read about the <a href="https://www.terraform.io/internals/lifecycle">resource lifecycle</a></p>
+<pre data-lang="terraform" style="background-color:#2b303b;color:#c0c5ce;" class="language-terraform "><code class="language-terraform" data-lang="terraform"><span>  # local_file.team_guide must be replaced
+</span><span>-/+ resource &quot;local_file&quot; &quot;team_guide&quot; {
+</span><span>      ~ content              = &lt;&lt;-EOT # forces replacement
+</span><span>            a: hey, I&#39;m a. aaaaaay!
+</span><span>          - b: great team. we change names a lot. weekly, at least.
+</span><span>          + b: great team. we don&#39;t change our name often.
+</span><span>            c: int main () { return 0; }
+</span><span>        EOT
+</span><span>      ~ id                   = &quot;f5533e02419d3af8acb8736662de1eb54e755544&quot; -&gt; (known after apply)
+</span><span>        # (3 unchanged attributes hidden)
+</span><span>    }
+</span><span>
+</span><span>Plan: 1 to add, 0 to change, 1 to destroy.
+</span></code></pre>
+<p>If your brain is used to the patterns used by Puppet, you would expect that adding a <code>depends_on</code> to the resource would resolve this issue. It does not. The reason for this is that adding this dependency does not change the diff that will be generated during the plan stage. The file being read by <code>file()</code> simply will not have changed at that point. There is no concept of a &quot;refresh&quot; between resources in Terraform that would force an update of resources in the dependency graph based on another resource change. Instead, all of the resources that are known are queried during the plan stage, and a diff is generated using those values against the current state file.</p>
+<p>I found this counter-intuitive when I first started learning Terraform due to the familiar patterns that I knew from Puppet. Still, once I learned and updated my understanding of how Terraform works, I found that I could reason about how my configurations would be applied much better. I hope that this post helped you have some similar epiphanies of your own about Terraform. Thanks for reading!</p>
+<p>If you found this guide helpful, consider reading <a href="https://matthewaerose.github.io/terraform/console/2023/08/31/talking-to-the-locals.html">Matthew Rose's blog post &quot;Talking to the Locals&quot; about the <code>terraform console</code></a> to get some pointers on how to better explore your Terraform code and state with a handy REPL!</p>
+
+
+        </div>
+
+    </body>
+
+</html>

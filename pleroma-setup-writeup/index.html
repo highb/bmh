@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+      <!-- Enable responsiveness on mobile devices-->
+      <!-- viewport-fit=cover is to support iPhone X rounded corners and notch in landscape-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover">
+
+      <title>Brandon High</title>
+
+      <!-- CSS -->
+      <link rel="stylesheet" href="https://blog.bmh.io/print.css" media="print">
+      <link rel="stylesheet" href="https://blog.bmh.io/poole.css">
+      <link rel="stylesheet" href="https://blog.bmh.io/hyde.css">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+      
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="https://blog.bmh.io/atom.xml">
+      
+
+      
+      
+    </head>
+
+    <body class="theme-base-0b ">
+        
+            <div class="sidebar">
+                <div class="container sidebar-sticky">
+                    <div class="sidebar-about">
+                        
+                            <a href="https:&#x2F;&#x2F;blog.bmh.io"><h1>Brandon High</h1></a>
+                            
+                            <p class="lead">Just another nerd blog</p>
+                            
+                        
+                    </div>
+
+                    <ul class="sidebar-nav">
+                        
+                        
+                        <li class="sidebar-nav-item"><a href="https:&#x2F;&#x2F;bmh.io&#x2F;wishlist">Wishlist of Shiny Things</a></li>
+                        
+                        <li class="sidebar-nav-item"><a href="https:&#x2F;&#x2F;github.com&#x2F;highb&#x2F;bmh">Source on GitHub</a></li>
+                        
+                        <li class="sidebar-nav-item"><a href="https:&#x2F;&#x2F;www.getzola.org&#x2F;">Generated with Zola</a></li>
+                        
+                        <li class="sidebar-nav-item"><a href="https:&#x2F;&#x2F;pdx.sh&#x2F;@bh">Social on Portlandish (Mastodon)</a></li>
+                        
+                        <li class="sidebar-nav-item"><a href="https:&#x2F;&#x2F;blog.bmh.io&#x2F;atom.xml">Atom (XML Feed)</a></li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div class="content container">
+            
+<h1 class="title">
+  Pleroma Setup Write-up
+</h1>
+<p class="subtitle"><strong>2021-02-18</strong></p>
+<p class="subtitle"></p>
+<p class="subtitle"></p>
+<p><a href="https://pleroma.social/">Pleroma</a> is an open source social network platform that is a part of the <a href="https://fediverse.party/en/fediverse">Fediverse</a>. In this write-up, I will be describing my experience with installing the <a href="https://erlang.org/doc/design_principles/release_structure.html">OTP release</a> on a Linux <a href="https://cloud.google.com/compute/">VM in Google Cloud</a> by <a href="https://docs-develop.pleroma.social/backend/installation/otp_en/">following the official documentation</a>.</p>
+<span id="continue-reading"></span>
+<p>For someone who works with <a href="https://kubernetes.io/">Kubernetes clusters</a> daily and deploys to them using <a href="https://helm.sh/">Helm</a>, the idea of manually configuring a VM to run my application is an adorable flashback to a simpler time. It brings me back to my days as a student systems administrator at Oregon State or the very early days wherein I would run Unreal Tournament servers from my home Linux computer. Are you feeling the nostalgia?</p>
+<h1 id="pre-requisites">Pre-requisites</h1>
+<blockquote>
+<p>A machine running Linux with GNU (e.g. Debian, Ubuntu) or musl (e.g. Alpine) libc and x86_64, aarch64 or armv7l CPU, you have root access to. If you are not sure if it's compatible see Detecting flavour section below
+A (sub)domain pointed to the machine</p>
+</blockquote>
+<p>I'm going to handwave over this a bit, Google Cloud and my DNS provider Cloudflare are going to have much better docs on it than I am. Aside from a little annoyance with setting up Google Cloud to play nicely with my Legacy GSuite Account, getting a e2-small (2 vCPUs, 2 GB memory) with a static IP setup and an A Record from CloudFlare was easy enough.</p>
+<h1 id="installing-the-required-packages">Installing the required packages</h1>
+<p>A pretty uneventful set of packages. <a href="https://docs-develop.pleroma.social/backend/installation/otp_en/#installing-the-required-packages">The docs describe each one's purpose</a>. Went ahead and installed them on the VM over SSH.</p>
+<h1 id="configuring-postgresql"><a href="https://docs-develop.pleroma.social/backend/installation/otp_en/#configuring-postgresql">Configuring PostgreSQL</a></h1>
+<p>The developer docs provide some useful tuning config for a small 2GB/2CPU instance like I've provisioned so I'm popping the config values below into <code>/etc/postgresql/11/main/postgresql.conf</code>. Beware of just pasting those values in, they already exist in the config! To save myself future confusion, I uncommented/updated the values provided in the config file by the system package. The values check out with what I've seen previously coming out of <a href="https://pgtune.leopard.in.ua/#/">PGTune</a> in my professional life.</p>
+<pre data-lang="ini" style="background-color:#2b303b;color:#c0c5ce;" class="language-ini "><code class="language-ini" data-lang="ini"><span style="color:#bf616a;">shared_buffers </span><span>= </span><span style="color:#d08770;">512MB
+</span><span style="color:#bf616a;">effective_cache_size </span><span>= </span><span style="color:#d08770;">1536MB
+</span><span style="color:#bf616a;">maintenance_work_mem </span><span>= </span><span style="color:#d08770;">128MB
+</span><span style="color:#bf616a;">work_mem </span><span>= </span><span style="color:#d08770;">26214kB
+</span><span style="color:#bf616a;">max_worker_processes </span><span>= </span><span style="color:#d08770;">2
+</span><span style="color:#bf616a;">max_parallel_workers_per_gather </span><span>= </span><span style="color:#d08770;">1
+</span><span style="color:#bf616a;">max_parallel_workers </span><span>= </span><span style="color:#d08770;">2
+</span></code></pre>
+<h1 id="installing-pleroma"><a href="https://docs-develop.pleroma.social/backend/installation/otp_en/#installing-pleroma">Installing Pleroma</a></h1>
+<p>Next up, making a user for the service, downloading the release, making a bunch of directories, etc. The developer includes what is essentially a shell script in the docs, so I copied the whole thing and put it in a shell script with a few tweaks:</p>
+<ul>
+<li>Took the arch detection code from the top of the doc and injected it as below. This makes the script auto-detect the arch, which afaik is the only input needed on this script.</li>
+</ul>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">arch</span><span>=&quot;$</span><span style="color:#a3be8c;">(</span><span style="color:#bf616a;">uname -m</span><span style="color:#a3be8c;">)</span><span>&quot;;</span><span style="color:#b48ead;">if </span><span style="color:#96b5b4;">[ </span><span>&quot;$</span><span style="color:#bf616a;">arch</span><span>&quot; = &quot;</span><span style="color:#a3be8c;">x86_64</span><span>&quot; </span><span style="color:#96b5b4;">]</span><span>;</span><span style="color:#b48ead;">then </span><span style="color:#bf616a;">arch</span><span>=&quot;</span><span style="color:#a3be8c;">amd64</span><span>&quot;;</span><span style="color:#b48ead;">elif </span><span style="color:#96b5b4;">[ </span><span>&quot;$</span><span style="color:#bf616a;">arch</span><span>&quot; = &quot;</span><span style="color:#a3be8c;">armv7l</span><span>&quot; </span><span style="color:#96b5b4;">]</span><span>;</span><span style="color:#b48ead;">then </span><span style="color:#bf616a;">arch</span><span>=&quot;</span><span style="color:#a3be8c;">arm</span><span>&quot;;</span><span style="color:#b48ead;">elif </span><span style="color:#96b5b4;">[ </span><span>&quot;$</span><span style="color:#bf616a;">arch</span><span>&quot; = &quot;</span><span style="color:#a3be8c;">aarch64</span><span>&quot; </span><span style="color:#96b5b4;">]</span><span>;</span><span style="color:#b48ead;">then </span><span style="color:#bf616a;">arch</span><span>=&quot;</span><span style="color:#a3be8c;">arm64</span><span>&quot;;</span><span style="color:#b48ead;">else </span><span style="color:#96b5b4;">echo </span><span>&quot;</span><span style="color:#a3be8c;">Unsupported arch: </span><span>$</span><span style="color:#bf616a;">arch</span><span>&quot;&gt;&amp;</span><span style="color:#d08770;">2</span><span>;</span><span style="color:#b48ead;">fi</span><span>;</span><span style="color:#b48ead;">if </span><span style="color:#bf616a;">getconf</span><span> GNU_LIBC_VERSION&gt;/dev/null;</span><span style="color:#b48ead;">then </span><span style="color:#bf616a;">libc_postfix</span><span>=&quot;&quot;;</span><span style="color:#b48ead;">elif </span><span style="color:#96b5b4;">[ </span><span>&quot;$</span><span style="color:#a3be8c;">(</span><span style="color:#bf616a;">ldd </span><span style="color:#d08770;">2</span><span>&gt;&amp;</span><span style="color:#d08770;">1</span><span>|</span><span style="color:#bf616a;">head -c</span><span style="color:#a3be8c;"> 9)</span><span>&quot; = &quot;</span><span style="color:#a3be8c;">musl libc</span><span>&quot; </span><span style="color:#96b5b4;">]</span><span>;</span><span style="color:#b48ead;">then </span><span style="color:#bf616a;">libc_postfix</span><span>=&quot;</span><span style="color:#a3be8c;">-musl</span><span>&quot;;</span><span style="color:#b48ead;">elif </span><span style="color:#96b5b4;">[ </span><span>&quot;$</span><span style="color:#a3be8c;">(</span><span style="color:#bf616a;">find</span><span style="color:#a3be8c;"> /lib/libc.musl</span><span>*|</span><span style="color:#bf616a;">wc -l</span><span style="color:#a3be8c;">)</span><span>&quot; </span><span style="color:#96b5b4;">]</span><span>;</span><span style="color:#b48ead;">then </span><span style="color:#bf616a;">libc_postfix</span><span>=&quot;</span><span style="color:#a3be8c;">-musl</span><span>&quot;;</span><span style="color:#b48ead;">else </span><span style="color:#96b5b4;">echo </span><span>&quot;</span><span style="color:#a3be8c;">Unsupported libc</span><span>&quot;&gt;&amp;</span><span style="color:#d08770;">2</span><span>;</span><span style="color:#b48ead;">fi</span><span>;</span><span style="color:#96b5b4;">echo </span><span>&quot;$</span><span style="color:#bf616a;">arch</span><span>$</span><span style="color:#bf616a;">libc_postfix</span><span>&quot;
+</span><span style="color:#b48ead;">export </span><span style="color:#bf616a;">FLAVOUR</span><span>=&quot;$</span><span style="color:#a3be8c;">{</span><span style="color:#bf616a;">arch</span><span style="color:#a3be8c;">}</span><span>$</span><span style="color:#a3be8c;">{</span><span style="color:#bf616a;">libc_postfix</span><span style="color:#a3be8c;">}</span><span>&quot;
+</span></code></pre>
+<p>Script ran with no issues. The little auto-configuration wizard that Pleroma includes is pretty easy to breeze through. Once it was up, standard <a href="https://letsencrypt.org/">Let's Encrypt</a> SSL setup. I'll probably transition away from it and use the CloudFlare provided Origin certs eventually, but this let me turn on Strict SSL faster and with minimal hassle so It Works For Now(tm). Pleroma provided an Nginx config that I only needed to sed the <code>example.tld</code> out of and copy over, and then it's off to the races with <a href="https://tomodachi.club">a functioning instance</a>! Don't forget to setup Let's Encrypt auto-renewal, folks.</p>
+<h1 id="summary">Summary</h1>
+<p>Overall, the process wasn't too bad, once I quieted the voice in my head that tells me to run everything in Kubernetes and decided I was fine with running directly on a VM instead. Happy microblogging!</p>
+
+
+        </div>
+
+    </body>
+
+</html>

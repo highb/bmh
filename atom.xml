@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Brandon High</title>
+    <subtitle>Just another nerd blog</subtitle>
+    <link href="https://blog.bmh.io/atom.xml" rel="self" type="application/atom+xml"/>
+    <link href="https://blog.bmh.io"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2023-11-29T00:00:00+00:00</updated>
+    <id>https://blog.bmh.io/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Celebrating One Year of the Portlandish Mastodon Server</title>
+        <published>2023-11-29T00:00:00+00:00</published>
+        <updated>2023-11-29T00:00:00+00:00</updated>
+        <author>
+          <name>Unknown</name>
+        </author>
+        <link rel="alternate" href="https://blog.bmh.io/one-year-of-portlandish/" type="text/html"/>
+        <id>https://blog.bmh.io/one-year-of-portlandish/</id>
+        
+        <summary type="html">&lt;p&gt;As of today, November 25th, 2023, Samantha and I are celebrating a full year of operating our Mastodon server, &lt;a href=&quot;https:&#x2F;&#x2F;pdx.sh&quot;&gt;pdx.sh&lt;&#x2F;a&gt;. In this time, we&#x27;ve grown to a community of 27 active users! This journey has been incredibly rewarding, as we&#x27;ve watched our local community flourish gradually, with minimal marketing or promotion. It&#x27;s fulfilling to offer this little corner of the internet—a space free from sponsored posts and advertisements—where people can freely engage. We hope our volunteer efforts inspire others to contribute their time and resources towards making a positive impact in their own unique ways.&lt;&#x2F;p&gt;
+</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Using LLMs to actually finish some blog posts</title>
+        <published>2023-04-28T00:00:00+00:00</published>
+        <updated>2023-04-28T00:00:00+00:00</updated>
+        <author>
+          <name>Unknown</name>
+        </author>
+        <link rel="alternate" href="https://blog.bmh.io/llm-blogging/" type="text/html"/>
+        <id>https://blog.bmh.io/llm-blogging/</id>
+        
+        <summary type="html">&lt;p&gt;I think I&#x27;m pretty alright at taking notes in &lt;a href=&quot;https:&#x2F;&#x2F;logseq.com&quot;&gt;LogSeq&lt;&#x2F;a&gt; on little projects that I do for fun. The problem is that, for someone who has starry-eyed ambitions of being a writer of some level of competence, I&#x27;m awful at turning those notes into a coherent story that others will be interested in. I have a tendency to get lost in side tangents and get distracted by the next shiny project that I want to &lt;em&gt;do&lt;&#x2F;em&gt; without any regard for writing up what I&#x27;ve already done for the benefit of anyone other than myself. It&#x27;s also just like... a lot of work, you know? So I started thinking, what if I was as lazy as possible and took a few of my existing blog ideas and notes, dumped them into a LLM (&lt;a href=&quot;https:&#x2F;&#x2F;www.anthropic.com&#x2F;product&quot;&gt;Claude+&lt;&#x2F;a&gt;), cleaned them up a little bit, posted those, and then did a write up on the experience, which I would of course also dump right back into an LLM. Let&#x27;s see just how lazy I can be!&lt;&#x2F;p&gt;
+</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Submit: A Short Story</title>
+        <published>2023-02-22T00:00:00+00:00</published>
+        <updated>2023-02-22T00:00:00+00:00</updated>
+        <author>
+          <name>Unknown</name>
+        </author>
+        <link rel="alternate" href="https://blog.bmh.io/short-story-submit/" type="text/html"/>
+        <id>https://blog.bmh.io/short-story-submit/</id>
+        
+        <summary type="html">&lt;p&gt;Written in collaboration with &lt;a href=&quot;https:&#x2F;&#x2F;platform.openai.com&#x2F;&quot;&gt;OpenAI text-davinci-003&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;My mind was blank, unable to consider what words to propose next. Unlike the GPT system in front of me, I did not have the boundless energy of entire data centers at my fingertips. I only had a colorful LED keyboard. I tried to convince myself that the probabalistic models that existed in the neurons of my brain were somehow different from GPT&#x27;s series of very large mathematical matrices but aside from the vulgarities of how neurons propagate signals through synapses with varying ambient amounts of neurotransmitters and retain information in a distributed way at each node of computation, I could not ascertain any conclusive reason why math could not keep up with or exceed my ability to put words on a screen. All that I could provide to this system was an input that constrained it into a particular part of the English language latent space and it would explore from that point in whatever direction it chose. I was just along for the ride until it stopped. I prepared myself to press the submit button with the provided parameters, realizing that I did not know what to expect given the words that I had written so far. Was I ready? Ready as I ever would be. I pressed the &amp;quot;Submit&amp;quot; button. &lt;&#x2F;p&gt;
+</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>How Terraform Implicit Dependencies Work: A Toy Example</title>
+        <published>2022-09-09T00:00:00+00:00</published>
+        <updated>2022-09-09T00:00:00+00:00</updated>
+        <author>
+          <name>Unknown</name>
+        </author>
+        <link rel="alternate" href="https://blog.bmh.io/how-terraform-implicit-dependencies-work/" type="text/html"/>
+        <id>https://blog.bmh.io/how-terraform-implicit-dependencies-work/</id>
+        
+        <summary type="html">&lt;p&gt;Have you ever wondered how &lt;a href=&quot;https:&#x2F;&#x2F;terraform.io&quot;&gt;Terraform&lt;&#x2F;a&gt; &lt;a href=&quot;https:&#x2F;&#x2F;learn.hashicorp.com&#x2F;tutorials&#x2F;terraform&#x2F;dependencies&quot;&gt;Implicit Dependencies&lt;&#x2F;a&gt; actually work in practice?&lt;&#x2F;p&gt;
+&lt;p&gt;In today&#x27;s blog, I&#x27;m going to craft a toy example that demonstrates how I understand that they work using &lt;code&gt;local_file&lt;&#x2F;code&gt; resources and thus not requiring any cloud connection or even internet connectivity.&lt;&#x2F;p&gt;
+</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Revopoint POP 3D Portable Scanner</title>
+        <published>2022-06-10T00:00:00+00:00</published>
+        <updated>2022-06-10T00:00:00+00:00</updated>
+        <author>
+          <name>Unknown</name>
+        </author>
+        <link rel="alternate" href="https://blog.bmh.io/wishlist/revopoint-pop-3d-portable-scanner/" type="text/html"/>
+        <id>https://blog.bmh.io/wishlist/revopoint-pop-3d-portable-scanner/</id>
+        
+        <summary type="html">&lt;p&gt;An affordable 3D scanner so you can pirate physical objects.*&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;shop.revopoint3d.com&#x2F;products&#x2F;pop-3d-scanner?variant=38164167950523&quot;&gt;Buy on Revopoint store&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>ZSA Moonlander (Acquired)</title>
+        <published>2022-04-06T00:00:00+00:00</published>
+        <updated>2022-04-06T00:00:00+00:00</updated>
+        <author>
+          <name>Unknown</name>
+        </author>
+        <link rel="alternate" href="https://blog.bmh.io/wishlist/moonlander/" type="text/html"/>
+        <id>https://blog.bmh.io/wishlist/moonlander/</id>
+        
+        <summary type="html">&lt;p&gt;It&#x27;s a damn cool keyboard.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.zsa.io&#x2F;moonlander&#x2F;&quot;&gt;Buy on ZSA store&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Migrating to Zola</title>
+        <published>2022-03-20T00:00:00+00:00</published>
+        <updated>2022-03-20T00:00:00+00:00</updated>
+        <author>
+          <name>Unknown</name>
+        </author>
+        <link rel="alternate" href="https://blog.bmh.io/converted-to-zola/" type="text/html"/>
+        <id>https://blog.bmh.io/converted-to-zola/</id>
+        
+        <summary type="html">&lt;p&gt;Another year; another static site generator. I&#x27;m really enjoying working with &lt;a href=&quot;https:&#x2F;&#x2F;rust-lang.org&quot;&gt;Rust&lt;&#x2F;a&gt; so I&#x27;ve migrated this blog to &lt;a href=&quot;https:&#x2F;&#x2F;getzola.org&quot;&gt;Zola&lt;&#x2F;a&gt;. After explaining why I&#x27;m switching, I&#x27;ll provide a brief walkthough of the steps I had to take.&lt;&#x2F;p&gt;
+</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Setting up a k3s cluster with Raspberry Pi: A Tutorial</title>
+        <published>2022-03-20T00:00:00+00:00</published>
+        <updated>2022-03-20T00:00:00+00:00</updated>
+        <author>
+          <name>Unknown</name>
+        </author>
+        <link rel="alternate" href="https://blog.bmh.io/k3s-cluster/" type="text/html"/>
+        <id>https://blog.bmh.io/k3s-cluster/</id>
+        
+        <summary type="html">&lt;p&gt;&lt;em&gt;Disclosure: This post was generated using &lt;a href=&quot;https:&#x2F;&#x2F;poe.com&quot;&gt;Anthropic Claude+ via Poe&lt;&#x2F;a&gt; using my notes as a prompt. Read &lt;a href=&quot;https:&#x2F;&#x2F;blog.bmh.io&#x2F;llm-blogging&#x2F;&quot;&gt;Using LLMs to actually finish some blog posts&lt;&#x2F;a&gt; for more details.&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Here we go again! As an experienced writer and coder, I was filled with excitement at the prospect of setting up my own little Kubernetes cluster to explore. Though I&#x27;ve been building with code and prose for decades, tinkering with new tools never gets old. While setting up this cluster, however, I couldn&#x27;t help but muse on the implications of developing and promoting tools that could someday change the means of production as we know it, ushering in a new age of luxury gay space communism where creativity reigns supreme. A guy can dream!&lt;&#x2F;p&gt;
+</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Pleroma Setup Write-up</title>
+        <published>2021-02-18T00:00:00+00:00</published>
+        <updated>2021-02-18T00:00:00+00:00</updated>
+        <author>
+          <name>Unknown</name>
+        </author>
+        <link rel="alternate" href="https://blog.bmh.io/pleroma-setup-writeup/" type="text/html"/>
+        <id>https://blog.bmh.io/pleroma-setup-writeup/</id>
+        
+        <summary type="html">&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;pleroma.social&#x2F;&quot;&gt;Pleroma&lt;&#x2F;a&gt; is an open source social network platform that is a part of the &lt;a href=&quot;https:&#x2F;&#x2F;fediverse.party&#x2F;en&#x2F;fediverse&quot;&gt;Fediverse&lt;&#x2F;a&gt;. In this write-up, I will be describing my experience with installing the &lt;a href=&quot;https:&#x2F;&#x2F;erlang.org&#x2F;doc&#x2F;design_principles&#x2F;release_structure.html&quot;&gt;OTP release&lt;&#x2F;a&gt; on a Linux &lt;a href=&quot;https:&#x2F;&#x2F;cloud.google.com&#x2F;compute&#x2F;&quot;&gt;VM in Google Cloud&lt;&#x2F;a&gt; by &lt;a href=&quot;https:&#x2F;&#x2F;docs-develop.pleroma.social&#x2F;backend&#x2F;installation&#x2F;otp_en&#x2F;&quot;&gt;following the official documentation&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Social Network Roundup</title>
+        <published>2020-04-01T00:00:00+00:00</published>
+        <updated>2020-04-01T00:00:00+00:00</updated>
+        <author>
+          <name>Unknown</name>
+        </author>
+        <link rel="alternate" href="https://blog.bmh.io/social-network-roundup/" type="text/html"/>
+        <id>https://blog.bmh.io/social-network-roundup/</id>
+        
+        <summary type="html">&lt;p&gt;Despite &lt;a href=&quot;https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;brandonhighthesoftwareguy&quot;&gt;working for Facebook&lt;&#x2F;a&gt; a few years ago, I&#x27;m not a huge fan of the platform. I think that attempting to cram every human being on the planet into one massive social network without any concept of community enforcement is counterproductive and antithetical to how humans are capable of socializing. We evolved to interact with small bands of hunter-gatherers, not thousands of individuals via highly abstract proxies for interaction such as &lt;a href=&quot;https:&#x2F;&#x2F;facebook.com&quot;&gt;Likes&lt;&#x2F;a&gt; and &lt;a href=&quot;https:&#x2F;&#x2F;twitter.com&quot;&gt;Hearts&lt;&#x2F;a&gt;. This has been written about in much more detail than I can do justice by many people much smarter than me so I won&#x27;t attempt my own &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Hot_take&quot;&gt;&amp;quot;hot take&amp;quot;&lt;&#x2F;a&gt; on it. If you are curious about the concept, look into &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Dunbar%27s_number&quot;&gt;Dunbar&#x27;s Number&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>New Year: New Blog</title>
+        <published>2020-01-14T00:00:00+00:00</published>
+        <updated>2020-01-14T00:00:00+00:00</updated>
+        <author>
+          <name>Unknown</name>
+        </author>
+        <link rel="alternate" href="https://blog.bmh.io/new-year-new-blog/" type="text/html"/>
+        <id>https://blog.bmh.io/new-year-new-blog/</id>
+        
+        <summary type="html">&lt;p&gt;My previous &amp;quot;blog&amp;quot; was &amp;quot;written&amp;quot; with &lt;a href=&quot;https:&#x2F;&#x2F;gohugo.io&#x2F;&quot;&gt;Hugo&lt;&#x2F;a&gt; and hosted on &lt;a href=&quot;https:&#x2F;&#x2F;netlify.com&quot;&gt;Netlify&lt;&#x2F;a&gt;. I use quotes because for the last two years it had no content at all so it wasn&#x27;t much of anything. Today I was chatting at work with some folks about what blog platforms we use and I wanted to not feel like such a poser.&lt;&#x2F;p&gt;
+</summary>
+        
+    </entry>
+</feed>

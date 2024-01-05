@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+      <!-- Enable responsiveness on mobile devices-->
+      <!-- viewport-fit=cover is to support iPhone X rounded corners and notch in landscape-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover">
+
+      <title>Brandon High</title>
+
+      <!-- CSS -->
+      <link rel="stylesheet" href="https://blog.bmh.io/print.css" media="print">
+      <link rel="stylesheet" href="https://blog.bmh.io/poole.css">
+      <link rel="stylesheet" href="https://blog.bmh.io/hyde.css">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+      
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="https://blog.bmh.io/atom.xml">
+      
+
+      
+      
+    </head>
+
+    <body class="theme-base-0b ">
+        
+            <div class="sidebar">
+                <div class="container sidebar-sticky">
+                    <div class="sidebar-about">
+                        
+                            <a href="https:&#x2F;&#x2F;blog.bmh.io"><h1>Brandon High</h1></a>
+                            
+                            <p class="lead">Just another nerd blog</p>
+                            
+                        
+                    </div>
+
+                    <ul class="sidebar-nav">
+                        
+                        
+                        <li class="sidebar-nav-item"><a href="https:&#x2F;&#x2F;bmh.io&#x2F;wishlist">Wishlist of Shiny Things</a></li>
+                        
+                        <li class="sidebar-nav-item"><a href="https:&#x2F;&#x2F;github.com&#x2F;highb&#x2F;bmh">Source on GitHub</a></li>
+                        
+                        <li class="sidebar-nav-item"><a href="https:&#x2F;&#x2F;www.getzola.org&#x2F;">Generated with Zola</a></li>
+                        
+                        <li class="sidebar-nav-item"><a href="https:&#x2F;&#x2F;pdx.sh&#x2F;@bh">Social on Portlandish (Mastodon)</a></li>
+                        
+                        <li class="sidebar-nav-item"><a href="https:&#x2F;&#x2F;blog.bmh.io&#x2F;atom.xml">Atom (XML Feed)</a></li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div class="content container">
+            
+<h1 class="title">
+  New Year: New Blog
+</h1>
+<p class="subtitle"><strong>2020-01-14</strong></p>
+<p class="subtitle"></p>
+<p class="subtitle"></p>
+<p>My previous &quot;blog&quot; was &quot;written&quot; with <a href="https://gohugo.io/">Hugo</a> and hosted on <a href="https://netlify.com">Netlify</a>. I use quotes because for the last two years it had no content at all so it wasn't much of anything. Today I was chatting at work with some folks about what blog platforms we use and I wanted to not feel like such a poser.</p>
+<span id="continue-reading"></span>
+<p>That preface out of the way, I've decided that a new year means a new blog and I'm resolving to write weekly about my various adventures and thoughts revolving around technology here. Hopefully 2020 is a better year in oh so many ways. &quot;What is this new blog written in?&quot; you ask. It's <a href="https://hexo.io/">Hexo</a> and it is running on <a href="https://zeit.co/">Zeit Now</a>.</p>
+<p>Why did I chose those two? Despite my firey hate of all things JavaScript, it is a useful language to learn, the community around <a href="https://hexo.io">Hexo</a> seems much more vibrant, and it's stupidly easy to use. As for my decision to use Zeit, it seems like if I want to jump into any squirrely experiments with different cloud platforms and serverless functions, Zeit is much more flexible than Netlify while still retaining the simple Github-based workflow that I like.</p>
+<p>Given how much easier it should be to maintain and update this blog, I'm hoping it will be easy to keep that resolution to write here biweekly. 🤞</p>
+<h2 id="how-i-set-this-up-on-osx">How I set this up on OSX</h2>
+<ol>
+<li>Delete old empty blog <a href="https://github.com/highb/bmh/commit/90f6834efa0fc420e53130821eaf573ecd37183e">commit</a></li>
+</ol>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#65737e;"># nuke everything, boring git stuff
+</span><span style="color:#bf616a;">git</span><span> rm</span><span style="color:#bf616a;"> -rf </span><span>*
+</span><span style="color:#bf616a;">git</span><span> commit</span><span style="color:#bf616a;"> -m </span><span>&#39;</span><span style="color:#a3be8c;">Dump netlify and hugo</span><span>&#39;
+</span><span style="color:#bf616a;">git</span><span> push origin master
+</span></code></pre>
+<ol>
+<li>Install <a href="https://nodejs.org/en/">NodeJS</a> and <a href="https://hexo.io/docs/">hexo</a></li>
+</ol>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">brew</span><span> install nodejs </span><span style="color:#65737e;"># could also download the pkg or YOLO curl | bash
+</span><span style="color:#bf616a;">npm</span><span> install hexo</span><span style="color:#bf616a;"> -g
+</span></code></pre>
+<ol>
+<li>Use <code>hexo init</code> to make a new blog from the default template</li>
+</ol>
+<p>Since I already had a git repo checked out, I had to use <code>hexo init</code> in a subdirectory and move it out.</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">hexo</span><span> init blog
+</span><span style="color:#bf616a;">mv</span><span> blog/* .
+</span></code></pre>
+<ol>
+<li>Fiddle with <code>_config.yml</code> <a href="https://github.com/highb/bmh/commit/a3d2203eb05912f45ee3ac8b3ef70fecec56caba">commit</a></li>
+</ol>
+<p>Yet another YAML file in my life. Browsed through it and fiddled with settings like <code>title</code>, <code>url</code>, etc.</p>
+<ol>
+<li>Make the beginnings of this blog post <a href="https://github.com/highb/bmh/commit/9fb256f08875a0b829333670d19f810698e08c6a">commit</a></li>
+</ol>
+<p>Created a new file <code>source/_posts/New-Year-New-Blog.md</code> by calling <code>hexo new 'New Year New Blog'</code>. Filled it out with some pretty standard <a href="https://www.markdownguide.org/">Markdown</a> content.</p>
+<ol>
+<li>Add a theme and fiddle with it's settings <a href="https://github.com/highb/bmh/commit/51c7589f4c4d11fb4902d374a9c1ec99d33249a8">commit</a></li>
+</ol>
+<p>I was originally going to use <code>git submodule</code> to checkout my <a href="https://github.com/highb/hexo-theme-next">fork</a> of the <a href="https://theme-next.org/">theme</a> I found but then I remembered that submodules are terrible so I used <code>git rebase -i</code> to pave over that chapter of history, replaced it with a literal copy of my local checkout of my fork (minus the <code>.git</code> folder) and force pushed <code>git push origin master -f</code> over the evidence. 🔥📁🔥 I'll just pull down from <code>upstream</code> on my fork and copy over the files whenever I want to update or make changes. </p>
+<p>In Hugo, themes can also have settings. So I fiddled around with those a bit. 🤷‍♂️ I just have to remember to copy the <code>_config.yml</code> hacking I did back over to my fork of the theme.</p>
+<ol>
+<li>Make this blog post :inceptiontop: <a href="https://github.com/highb/bmh/commit/f37e3ea5072dececea4080b7a5191ae9d7654e39">commit</a></li>
+</ol>
+<p>Checked out what it will look like locally with <code>hexo server</code>.</p>
+<ol>
+<li>Login to Zeit create a new project</li>
+</ol>
+<p>I created <a href="https://zeit.co/new">a new project</a>, filled it out with the details for my blog and linked it to my <a href="https://github.com/highb/bmh">Github repo</a>. I restricted the permissions to the small set of static sites that I deploy and not include the hundreds of work forks. It's pretty easy to update them again later, if you search for a repo but Zeit can't find the repo, Zeit offers a link to the <a href="https://github.com/settings/installations/5601560">app config on Github</a>.</p>
+<p>Once the repo was added, Zeit immediately began build it (I think it uses npm actions in <code>package.json</code>) and then deployed it to a temporary domain.</p>
+<ol>
+<li>Setup Zeit domain</li>
+</ol>
+<p>I didn't want to have to deal with <a href="https://namecheap.com">NameCheap</a> <em>and</em> <a href="https://cloudflare.com">CloudFlare</a> for this silly blog, so I ported DNS management over to Zeit on NameCheap. For some reason the bulk edit didn't like the single character subdomains on Zeit (for example, <code>a.zeit-world.org</code>) but the &quot;Manage&quot; screen was fine with it. 🤷‍♂️ Sounds like a fun bug for someone that isn't me to fix. DNS migrated super-quick and easy.</p>
+<p><img src="https://blog.bmh.io/new-year-new-blog/New-Year-New-Blog/namecheap-screenshot.png" alt="NameCheap DNS Setup Screenshot" /></p>
+<p>I decided I wanted to add a screenshot, which required adding <a href="https://github.com/liolok/hexo-asset-link"><code>hexo-asset-link</code></a> via <code>npm i --save hexo-asset-link</code>.</p>
+<p>That's about it. Hopefully you've learned something from this overly verbose guide. 😅 Hello to all the crawlers and bots out there!</p>
+
+
+        </div>
+
+    </body>
+
+</html>

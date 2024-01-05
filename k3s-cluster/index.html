@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+      <!-- Enable responsiveness on mobile devices-->
+      <!-- viewport-fit=cover is to support iPhone X rounded corners and notch in landscape-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover">
+
+      <title>Brandon High</title>
+
+      <!-- CSS -->
+      <link rel="stylesheet" href="https://blog.bmh.io/print.css" media="print">
+      <link rel="stylesheet" href="https://blog.bmh.io/poole.css">
+      <link rel="stylesheet" href="https://blog.bmh.io/hyde.css">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+      
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="https://blog.bmh.io/atom.xml">
+      
+
+      
+      
+    </head>
+
+    <body class="theme-base-0b ">
+        
+            <div class="sidebar">
+                <div class="container sidebar-sticky">
+                    <div class="sidebar-about">
+                        
+                            <a href="https:&#x2F;&#x2F;blog.bmh.io"><h1>Brandon High</h1></a>
+                            
+                            <p class="lead">Just another nerd blog</p>
+                            
+                        
+                    </div>
+
+                    <ul class="sidebar-nav">
+                        
+                        
+                        <li class="sidebar-nav-item"><a href="https:&#x2F;&#x2F;bmh.io&#x2F;wishlist">Wishlist of Shiny Things</a></li>
+                        
+                        <li class="sidebar-nav-item"><a href="https:&#x2F;&#x2F;github.com&#x2F;highb&#x2F;bmh">Source on GitHub</a></li>
+                        
+                        <li class="sidebar-nav-item"><a href="https:&#x2F;&#x2F;www.getzola.org&#x2F;">Generated with Zola</a></li>
+                        
+                        <li class="sidebar-nav-item"><a href="https:&#x2F;&#x2F;pdx.sh&#x2F;@bh">Social on Portlandish (Mastodon)</a></li>
+                        
+                        <li class="sidebar-nav-item"><a href="https:&#x2F;&#x2F;blog.bmh.io&#x2F;atom.xml">Atom (XML Feed)</a></li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div class="content container">
+            
+<h1 class="title">
+  Setting up a k3s cluster with Raspberry Pi: A Tutorial
+</h1>
+<p class="subtitle"><strong>2022-03-20</strong></p>
+<p class="subtitle"></p>
+<p class="subtitle"></p>
+<p><em>Disclosure: This post was generated using <a href="https://poe.com">Anthropic Claude+ via Poe</a> using my notes as a prompt. Read <a href="https://blog.bmh.io/llm-blogging/">Using LLMs to actually finish some blog posts</a> for more details.</em></p>
+<p>Here we go again! As an experienced writer and coder, I was filled with excitement at the prospect of setting up my own little Kubernetes cluster to explore. Though I've been building with code and prose for decades, tinkering with new tools never gets old. While setting up this cluster, however, I couldn't help but muse on the implications of developing and promoting tools that could someday change the means of production as we know it, ushering in a new age of luxury gay space communism where creativity reigns supreme. A guy can dream!</p>
+<span id="continue-reading"></span><h2 id="why-raspberry-pi">Why Raspberry Pi?</h2>
+<p>Raspberry Pis are cheap, low-power ARM computers perfect for learning and tinkering. Using Pis meant I could set up a cluster without breaking the bank or causing too much of a power draw. For this tutorial, I used the Raspberry Pi 4 Model B.</p>
+<h2 id="why-k3s">Why k3s?</h2>
+<p>k3s is a lightweight Kubernetes distribution perfect for low-resource systems like the Raspberry Pi. Regular Kubernetes is a bit too heavy for the Pis, but k3s is optimized to run on systems with 1GB of RAM or less. </p>
+<h2 id="what-i-did">What I did</h2>
+<p>Following <a href="https://www.alexellis.io/">Alex Ellis</a>' blog, I bought 3 Raspberry Pi 4 Model B kits to get started. I already had some network equipment from Ubiquiti to set up an isolated VLAN for the cluster.</p>
+<p>For the OS, I downloaded Ubuntu Core for the Pi 4 and flashed it to each SD card using Etcher. I chose Ubuntu Core since its Snap packages make it easy to keep up to date. I went with the 32-bit OS for the Pis.</p>
+<p>With the OS installed, I used Ansible to configure each Pi with a static IP address on my isolated network VLAN. I set the hostname for each Pi: bwolf1, bwolf2, and bwolf3.</p>
+<p>On bwolf1, I installed k3s using k3sup, a Kubernetes cli installer:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">k3sup</span><span> install</span><span style="color:#bf616a;"> --ip</span><span> 10.0.80.20</span><span style="color:#bf616a;"> --user</span><span> pi 
+</span></code></pre>
+<p>Then I joined the other Pis to make a 3-node control plane cluster:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">k3sup</span><span> join</span><span style="color:#bf616a;"> --ip</span><span> 10.0.80.21</span><span style="color:#bf616a;"> --server-ip</span><span> 10.0.80.20</span><span style="color:#bf616a;"> --user</span><span> pi
+</span><span style="color:#bf616a;">k3sup</span><span> join</span><span style="color:#bf616a;"> --ip</span><span> 10.0.80.22</span><span style="color:#bf616a;"> --server-ip</span><span> 10.0.80.20</span><span style="color:#bf616a;"> --user</span><span> pi
+</span></code></pre>
+<p>With the cluster set up, I tested it out by deploying an nginx deployment:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubectl</span><span> create deployment nginx</span><span style="color:#bf616a;"> --image</span><span>=nginx
+</span></code></pre>
+<p>The deployment worked! Now I have a fun platform to deploy apps, dashboards, and more. I'm excited to start tinkering with Kubernetes and seeing what I can build.</p>
+<p>While Kubernetes and other automation tools will likely transform labor as we know it, rendering some jobs obsolete, the human urge to build, make, and express ourselves will endure. When the tedious tasks of the past fade into memory, our creativity will be unleashed to focus on higher pursuits. No longer constrained by the mundane demands of manual labor, people would be free to follow their passions and talents.</p>
+<p>A world where creativity reigns supreme may seem like a utopian fantasy, but we have more power to shape our destiny than we realize. Though my guide to setting up a Kubernetes cluster on Raspberry Pi is but a small contribution, tools that empower hobbyists and learners to explore topics once out of reach are steps toward a future where passion, not profit, is the driving force behind innovation.</p>
+<p>While the present remains constrained by existing systems and means of production, glimmers of possibility shine through. A little cluster, some code, and a chance to create -- that's really all one needs to start building the future we want to see. On to the next project! The future won't build itself, after all. There's no time like the present to get started.</p>
+
+
+        </div>
+
+    </body>
+
+</html>

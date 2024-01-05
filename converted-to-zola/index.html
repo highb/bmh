@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+      <!-- Enable responsiveness on mobile devices-->
+      <!-- viewport-fit=cover is to support iPhone X rounded corners and notch in landscape-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover">
+
+      <title>Brandon High</title>
+
+      <!-- CSS -->
+      <link rel="stylesheet" href="https://blog.bmh.io/print.css" media="print">
+      <link rel="stylesheet" href="https://blog.bmh.io/poole.css">
+      <link rel="stylesheet" href="https://blog.bmh.io/hyde.css">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+      
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="https://blog.bmh.io/atom.xml">
+      
+
+      
+      
+    </head>
+
+    <body class="theme-base-0b ">
+        
+            <div class="sidebar">
+                <div class="container sidebar-sticky">
+                    <div class="sidebar-about">
+                        
+                            <a href="https:&#x2F;&#x2F;blog.bmh.io"><h1>Brandon High</h1></a>
+                            
+                            <p class="lead">Just another nerd blog</p>
+                            
+                        
+                    </div>
+
+                    <ul class="sidebar-nav">
+                        
+                        
+                        <li class="sidebar-nav-item"><a href="https:&#x2F;&#x2F;bmh.io&#x2F;wishlist">Wishlist of Shiny Things</a></li>
+                        
+                        <li class="sidebar-nav-item"><a href="https:&#x2F;&#x2F;github.com&#x2F;highb&#x2F;bmh">Source on GitHub</a></li>
+                        
+                        <li class="sidebar-nav-item"><a href="https:&#x2F;&#x2F;www.getzola.org&#x2F;">Generated with Zola</a></li>
+                        
+                        <li class="sidebar-nav-item"><a href="https:&#x2F;&#x2F;pdx.sh&#x2F;@bh">Social on Portlandish (Mastodon)</a></li>
+                        
+                        <li class="sidebar-nav-item"><a href="https:&#x2F;&#x2F;blog.bmh.io&#x2F;atom.xml">Atom (XML Feed)</a></li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div class="content container">
+            
+<h1 class="title">
+  Migrating to Zola
+</h1>
+<p class="subtitle"><strong>2022-03-20</strong></p>
+<p class="subtitle"></p>
+<p class="subtitle"></p>
+<p>Another year; another static site generator. I'm really enjoying working with <a href="https://rust-lang.org">Rust</a> so I've migrated this blog to <a href="https://getzola.org">Zola</a>. After explaining why I'm switching, I'll provide a brief walkthough of the steps I had to take.</p>
+<span id="continue-reading"></span><h2 id="why-zola">Why Zola?</h2>
+<p>I was previously using <a href="https://hexo.io/">Hexo</a> for my blog, which is yet another static site generator in JS. It's quite popular, but I don't work very often with the NodeJS ecosystem so I found that every time I wanted to write a new blog post, I had to get aquainted with the latest updates to all the various dependencies -- many of which had security issues. That was all quite a bit of effort for software that is only ever used in the build process to generate static HTML, CSS and JavaScript.</p>
+<p>This is all in stark contrast to <a href="https://getzola.org">Zola</a> which is written in Rust and distributed as a single binary with no dependencies. Sure, if I wanted to build my own binary of Zola I would need to figure out and manage upgrading the dependencies. But as someone who just wants to write a comically simple blog documenting my learning, a single binary with an easily understandable version is just what I need. The site builds in a few milliseconds and has a local hot-reload command to preview my changes. The fact that it was trivial to migrate my existing posts written in Markdown over left me with no reason not to do it. How easy, you ask?</p>
+<h2 id="generate-a-new-zola-project">Generate a new Zola project</h2>
+<p>I used the default Zola site init tool to make an example set of folders and config, then copied it over my old repo.</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">zola</span><span> init bmh
+</span><span style="color:#bf616a;">cp -r</span><span> bmh/* bmh-github/*
+</span></code></pre>
+<h2 id="copy-over-the-relevant-config-from-the-old-project">Copy over the relevant config from the old project</h2>
+<p>Migrating the configuration over from Hexo was mostly a matter of setting a title and enabling some of the features. My blog is pretty simple so YMMV.</p>
+<h2 id="test-it-out">Test it out</h2>
+<p>Zola has a fast reload command for previewing changes during development. After a little while playing around with that, I had my site setup with a fork of an upstream Zola theme that looks good enough for me.</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">zola</span><span> serve
+</span></code></pre>
+<h2 id="setup-deployment">Setup deployment</h2>
+<p>I used <a href="https://vercel.com/">Vercel</a> to do the build and deploy with Hexo. They also support Zola so when I pushed up a new branch with Zola configured instead of Hexo, they automatically generated the site.</p>
+<h2 id="other-goings-on">Other goings on</h2>
+<p>I'm starting out on the <a href="https://zero2prod.com">Zero to Production in Rust</a> book. I'm on Chapter 3 and it has been a good read so far, although I'm debating if I want to make use of the GitHub actions that are available or if I want to setup some run steps to call the various <code>cargo</code> commands myself. For a real &quot;production&quot; experience, it does seem like it would be wise to roll my own instead but I think for the sake of learning it's fine.</p>
+
+
+        </div>
+
+    </body>
+
+</html>
