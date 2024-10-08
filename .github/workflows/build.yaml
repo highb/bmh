@@ -15,7 +15,7 @@ jobs:
     if: github.ref != 'refs/heads/main'
     steps:
       - name: Checkout main
-        uses: actions/checkout@v3.0.0
+        uses: actions/checkout@v4.2.1
       - name: Build only 
         uses: highb/zola-deploy-action@master
         env:
@@ -29,7 +29,7 @@ jobs:
     if: github.ref == 'refs/heads/main'
     steps:
       - name: Checkout main
-        uses: actions/checkout@v3.0.0
+        uses: actions/checkout@v4.2.1
       - name: Build and deploy
         uses: highb/zola-deploy-action@master
         env:
