@@ -108,6 +108,10 @@ pagination.pagerSize = 3
           identifier = "rss"
           name = "rss"
           url = "https://blog.bmh.io/atom.xml"
+        [[languages.en.menu.main]]
+          identifier = "notes"
+          name = "notes"
+          url = "https://notes.bmh.io"
 # [markdown]
 # # Whether to do syntax highlighting
 # # Theme can be customised by setting the `highlight_theme` variable to a theme supported by Zola
