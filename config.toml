@@ -105,6 +105,10 @@ pagination.pagerSize = 3
           name = "mastodon"
           url = "https://pdx.sh/@bh"
         [[languages.en.menu.main]]
+          identifier = "bsky"
+          name = "bsky"
+          url = "https://bsky.app/profile/haibee.bsky.social"
+        [[languages.en.menu.main]]
           identifier = "rss"
           name = "rss"
           url = "https://blog.bmh.io/atom.xml"
