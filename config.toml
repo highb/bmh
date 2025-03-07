@@ -103,7 +103,7 @@ pagination.pagerSize = 3
         [[languages.en.menu.main]]
           identifier = "mastodon"
           name = "mastodon"
-          url = "https://pdx.sh/@bh"
+          url = "https://fosstodon.org/@highb"
         [[languages.en.menu.main]]
           identifier = "bsky"
           name = "bsky"
