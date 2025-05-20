@@ -1,7 +1,7 @@
 ---
 title: "Exporting from Proton Pass to 1password"
 date: 2025-05-20T11:22:41-07:00
-draft: true
+draft: false
 ---
 
 What a mess. I changed email providers from Fastmail to Proton Mail a while ago. While doing so, I found that they also offered a password manager called Proton Pass. Thinking that being completely on the Proton suite would make my life easier, I moved my personal credentials into Proton Pass.
@@ -20,9 +20,10 @@ Once I realized I would be running two password managers side-by-side in this si
 
 To work around this, I used the following Rosetta Stone-style conversion:
 
-Export a ZIP from Proton Pass web UI via Settings (Gear) > Export > File format (ZIP).
-Create a Bitwarden free account. Use the "Import Data" wizard to pull in the ZIP.
-Export from Bitwarden web UI via Tools > Export Vault. Choose ".json (Encrypted)" as the file format and set it as "Password protected."
-Import into 1Password web UI via the account link in the upper right corner > Import data. Select Bitwarden, pick a new/existing vault, enter the passphrase, and upload the JSON file.
-Delete the database exports, wherever they were saved.
+1. Export a ZIP from Proton Pass web UI via Settings (Gear) > Export > File format (ZIP).
+2. Create a Bitwarden free account. Use the "Import Data" wizard to pull in the ZIP.
+3. Export from Bitwarden web UI via Tools > Export Vault. Choose ".json (Encrypted)" as the file format and set it as "Password protected."
+4. Import into 1Password web UI via the account link in the upper right corner > Import data. Select Bitwarden, pick a new/existing vault, enter the passphrase, and upload the JSON file.
+5. Delete the database exports, wherever they were saved.
+
 After performing these steps, I had all of my credentials in 1Password again, with tags for the vaults that were originally used in Proton Pass and a tag "Imported $DATE" for later reference. I made a secure note with that date in the title in case I forget where it came from, and now I can move on with my life of only using one password manager at a time.
