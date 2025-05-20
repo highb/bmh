@@ -1,6 +1,7 @@
 ---
 title: 'New Year: New Blog'
 date: 2020-01-14
+type: blog
 tags:
   - hugo
   - netlify

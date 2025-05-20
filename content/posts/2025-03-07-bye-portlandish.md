@@ -1,5 +1,6 @@
 +++
 title = "Portlandish has been Shut Down"
+type = "blog"
 date = 2025-03-07
 +++
 
