@@ -4,6 +4,8 @@ date: 2025-05-20T11:22:41-07:00
 draft: false
 ---
 
+2025-07-03 Edit: WARNING: This export method DOES NOT PRESERVE EXTRA FIELDS from Proton Pass. I have an ever bigger mess now. T_T
+
 What a mess. I changed email providers from Fastmail to Proton Mail a while ago. While doing so, I found that they also offered a password manager called Proton Pass. Thinking that being completely on the Proton suite would make my life easier, I moved my personal credentials into Proton Pass.
 
 In time, I would come to regret that decision.
