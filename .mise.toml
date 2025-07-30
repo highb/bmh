@@ -1,3 +1,16 @@
 [tools]
 go = "1.21.6"
 "aqua:gohugoio/hugo/hugo-extended" = "0.147.4"
+
+[tasks.setup-initial]
+description = "Setup that only needs to occur one time, like git submodule setup"
+run = [
+  "git submodule init",
+  "git submodule update",
+]
+
+[tasks.serve]
+description = "Serve the site with whatever options I generally prefer"
+run = [
+  "hugo serve --openBrowser --baseURL http://localhost:1313",
+]

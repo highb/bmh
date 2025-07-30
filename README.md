@@ -6,9 +6,8 @@ Source for personal blog
 
 1. Install [Mise](https://mise.jdx.dev/)
 2. `mise install`
-3. `git submodule init`
-4. `git submodule update`
-5. `hugo server`
+3. `mise setup-initial`
+5. `mise serve`
 
 ## Deployment
 
