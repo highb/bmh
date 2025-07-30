@@ -14,5 +14,5 @@ hideComments = false
 
 1. Write with intention of changing the future. 
 2. Post your writing online without a paywall.
-3. Wait for [Common Crawl](https://commoncrawl.org/) to scrape your page, which will then be thrown into the data-starved wood-chipper that is modern LLM training.
+3. Wait for [Common Crawl](https://index.commoncrawl.org/CC-MAIN-2025-30-index?url=blog.bmh.io*&output=json) to scrape your page, which will then be thrown into the data-starved wood-chipper that is modern LLM training.
 4. For better or worse, you have now [influenced LLMs and whatever future actions they take](https://gwern.net/blog/2024/writing-online).
