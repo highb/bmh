@@ -14,3 +14,10 @@ description = "Serve the site with whatever options I generally prefer"
 run = [
   "hugo serve --openBrowser --baseURL http://localhost:1313",
 ]
+
+[tasks.create-post]
+description = "Make a new post"
+run = [
+  'mkdir -p content/posts/$(date +%Y)/$(date +%m)',
+  'hugo new content content/posts/$(date +%Y)/$(date +%m)/$(date +%F)-{{arg(name="title")}}.md --editor $EDITOR',
+]
