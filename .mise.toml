@@ -1,6 +1,6 @@
 [tools]
 go = "1.21.6"
-"aqua:gohugoio/hugo/hugo-extended" = "0.147.4"
+"aqua:gohugoio/hugo/hugo-extended" = "0.155.2"
 
 [tasks.setup-initial]
 description = "Setup that only needs to occur one time, like git submodule setup"
