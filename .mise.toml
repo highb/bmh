@@ -1,5 +1,5 @@
 [tools]
-go = "1.21.6"
+go = "1.25.7"
 "aqua:gohugoio/hugo/hugo-extended" = "0.147.4"
 
 [tasks.setup-initial]
