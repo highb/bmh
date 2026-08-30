@@ -1,17 +1,19 @@
 +++
 title = "mcp-snapotter"
-date = "2025-08-29"
+date = "2026-08-30"
 description = "MCP server for SnapOtter's 243 file-processing tools — images, video, audio, PDFs, and more."
 +++
 
 [mcp-snapotter](https://github.com/highb/mcp-snapotter) is an
 [MCP](https://modelcontextprotocol.io) server for
 [SnapOtter](https://github.com/snapotter-hq/SnapOtter), a self-hosted file-processing
-platform. It exposes SnapOtter's 243 tools to any MCP-compatible client (Claude Code,
-Claude Desktop, etc.) through a clean, discoverable interface.
+platform. It exposes SnapOtter's 243 tools to any MCP-compatible client
+([Claude Code](https://docs.anthropic.com/en/docs/claude-code),
+[Claude Desktop](https://claude.ai/download), etc.) through a clean, discoverable
+interface.
 
 Instead of flooding the model's context with 243 near-identical tools, it exposes eight
-generic ones and indexes the OpenAPI spec for discovery:
+generic ones and indexes the [OpenAPI](https://www.openapis.org) spec for discovery:
 
 | Tool | Purpose |
 |---|---|
@@ -27,7 +29,10 @@ generic ones and indexes the OpenAPI spec for discovery:
 | `snapotter_health` | Connectivity check |
 
 Settings are discovered at call time from SnapOtter's validation errors, so the
-server doesn't need to hand-model 243 settings schemas. Async tools (54 of them)
-are handled transparently with SSE-based progress polling.
+server doesn't need to model 243 settings schemas. Async tools (54 of them)
+are handled transparently with [SSE](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events)-based progress polling.
 
-Written in Python with strict mypy and ruff, MIT licensed.
+Written in [Python](https://python.org) with strict [mypy](https://mypy-lang.org) and
+[ruff](https://docs.astral.sh/ruff), [MIT](https://opensource.org/licenses/MIT) licensed.
+
+Written with Claude / oh-my-pi running open models.
